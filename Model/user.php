@@ -2,15 +2,17 @@
 
 class User{
 
-    private $id, $user_name, $email, $password, $role;
+    private $id, $user_name, $email, $password, $role, $verified, $banned;
 
 
-    public function __construct($id, $user_name, $email, $password, $role){
+    public function __construct($id, $user_name, $email, $password, $role, $verified, $banned){
         $this->id = $id;
         $this->user_name = $user_name;
         $this->email = $email;
         $this->password = $password;
         $this->role = $role;
+        $this->verified = $verified;
+        $this->banned = $banned;
     }
 
     public function set_id($val){
@@ -53,6 +55,22 @@ class User{
 
     public function get_role(){
         return $this->role;
+    }
+
+    public function set_verified($val){
+        $this->verified = $val;
+    }
+
+    public function get_verified(){
+        return $this->verified;
+    }
+
+    public function set_banned($val){
+        $this->banned = $val;
+    }
+
+    public function get_banned(){
+        return $this->banned;
     }
     
 
