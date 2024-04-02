@@ -1,6 +1,6 @@
 <?php
 
-require '../../config.php';
+require '../../../config.php';
 
 // for sending mails
 use PHPMailer\PHPMailer\PHPMailer;
@@ -86,16 +86,20 @@ class userCon{
 
     public function addUser($user)
     {
-        $sql = "INSERT INTO $this->tab_name(id, user_name, email, password, role) VALUES (:id, :user_name, :email, :password, :role)";
+        $sql = "INSERT INTO $this->tab_name(id, user_name, email, password, role, verified, banned) VALUES (:id, :user_name, :email, :password, :role, :verified, :banned)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
             $query->execute(
-               ['id' => $user->get_id(), 
+               [
+                'id' => $user->get_id(), 
                 'user_name' => $user->get_user_name(), 
                 'email' => $user->get_email(), 
                 'password' => $user->get_password(), 
-                'role' => $user->get_role()]
+                'role' => $user->get_role(),
+                'verified' => $user->get_verified(),
+                'banned' => $user->get_banned()
+                ]
             );
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
@@ -106,8 +110,8 @@ class userCon{
     {
         try {
             $db = config::getConnexion();
-            $query = $db->prepare('UPDATE $this->tab_name SET user_name = :user_name, email = :email, password = :password, role = :role WHERE id = :id');
-            $query->execute(['id' => $id, 'user_name' => $user->get_user_name(), 'email' => $user->get_email(), 'password' => $user->get_password(), 'role' => $user->get_role()]);
+            $query = $db->prepare('UPDATE $this->tab_name SET user_name = :user_name, email = :email, password = :password, role = :role, verified = :verified, banned = :banned WHERE id = :id');
+            $query->execute(['id' => $id, 'user_name' => $user->get_user_name(), 'email' => $user->get_email(), 'password' => $user->get_password(), 'role' => $user->get_role(), 'verified' => $user->get_verified(), 'banned' => $user->get_banned()]);
             echo $query->rowCount() . " records UPDATED successfully <br>";
         } catch (PDOException $e) {
             $e->getMessage();
@@ -295,8 +299,90 @@ class userCon{
         $mail_send_res = $mail_sender->send_normal_mail($email_to_send_to, $subject, $msg);
 
         if ($mail_send_res == "mail sent"){
-            session_start(); // Start the session
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+
             $_SESSION['reset code'] = $reset_code; // Set the error message in the session
+            return "done";
+            exit();
+        }
+        else {
+            return "error : " . $mail_send_res;
+        }
+    }
+
+    public function send_account_verify_code($user_input){
+        $Username =  'cashogo.tn@gmail.com';
+        $Password = 'sznc taqr oqzc lpjk';
+        $mail_sender = new MailSender($Username, $Password);
+
+
+        $email_to_send_to = '';
+        $recipient_name = "";
+        # get email_to_send_to and recipient_name
+        # by user name
+        if ($this->isEmailOrUserName($user_input) == "user name"){
+            $db = config::getConnexion();
+
+            $sql = "SELECT * FROM $this->tab_name WHERE user_name = :user_name";
+            try {
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':user_name', $user_input);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($result) {
+                
+                    $email_to_send_to = $result['email'];
+                    $recipient_name = $result['user_name'];
+                } else {
+                    return "wrong user name";
+                }
+
+            } catch (Exception $e) {
+                die('Error:' . $e->getMessage());
+            }
+        }
+        # by email
+        elseif ($this->isEmailOrUserName($user_input) == "email"){
+            $db = config::getConnexion();
+
+            $sql = "SELECT * FROM $this->tab_name WHERE email = :email";
+            try {
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':email', $user_input);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($result) {
+                
+                    $email_to_send_to = $result['email'];
+                    $recipient_name = $result['user_name'];
+                } else {
+                    return "wrong email";
+                }
+
+            } catch (Exception $e) {
+                die('Error:' . $e->getMessage());
+            }
+        }
+
+
+        $verification_code = $this->generateId(5);
+        $subject = "Account Verification Code [code: " . $verification_code . "]";
+        $msg = $mail_sender->generateAccountVerifyMessage($recipient_name, $verification_code, "HireUp");
+
+        $mail_send_res = $mail_sender->send_normal_mail($email_to_send_to, $subject, $msg);
+
+        if ($mail_send_res == "mail sent"){
+            
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            $_SESSION['reset code'] = $verification_code; // Set the error message in the session
             return "done";
             exit();
         }
@@ -352,12 +438,111 @@ class userCon{
         }
     }
 
+    public function get_user_username_by_id($id){
+        
+        $db = config::getConnexion();
+
+        $sql = "SELECT * FROM $this->tab_name WHERE id = :id";
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result) {
+                return $result['user_name'];
+            } else {
+                return "error";
+            }
+
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+        
+    }
+
     public function updateUserPassword($id, $new_password)
     {
         try {
             $db = config::getConnexion();
             $query = $db->prepare("UPDATE $this->tab_name SET password = :password WHERE id = :id");
             $query->execute(['password' => $new_password, 'id' => $id]);
+            echo $query->rowCount() . " records UPDATED successfully <br>";
+            return true;
+        } catch (PDOException $e) {
+            $e->getMessage();
+            echo($e);
+            return false;
+        }
+    }
+
+    public function get_user_verified_by_id($id){
+        
+        $db = config::getConnexion();
+
+        $sql = "SELECT * FROM $this->tab_name WHERE id = :id";
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result) {
+                return $result['verified'];
+            } else {
+                return "error";
+            }
+
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+        
+    }
+
+    public function updateUserVerified($id, $new_value)
+    {
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare("UPDATE $this->tab_name SET verified = :verified WHERE id = :id");
+            $query->execute(['verified' => $new_value, 'id' => $id]);
+            echo $query->rowCount() . " records UPDATED successfully <br>";
+            return true;
+        } catch (PDOException $e) {
+            $e->getMessage();
+            echo($e);
+            return false;
+        }
+    }
+
+    public function get_user_banned_by_id($id){
+        
+        $db = config::getConnexion();
+
+        $sql = "SELECT * FROM $this->tab_name WHERE id = :id";
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result) {
+                return $result['banned'];
+            } else {
+                return "error";
+            }
+
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+        
+    }
+
+    public function updateUserBanned($id, $new_value)
+    {
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare("UPDATE $this->tab_name SET banned = :banned WHERE id = :id");
+            $query->execute(['banned' => $new_value, 'id' => $id]);
             echo $query->rowCount() . " records UPDATED successfully <br>";
             return true;
         } catch (PDOException $e) {
@@ -426,6 +611,16 @@ class MailSender{
             "Thank you,\nThe $appName Team";
 
         return $passwordResetMessage;
+    }
+
+    public function generateAccountVerifyMessage($recipientName, $verificationCode, $appName){
+        $verificationMessage = "Dear $recipientName,\n\n" .
+            "Thank you for signing up with $appName. To verify your account, please use the following verification code:\n\n" .
+            "Verification Code: $verificationCode\n\n" .
+            "If you didn't sign up for $appName, please disregard this message.\n\n" .
+            "Thank you,\nThe $appName Team";
+
+        return $verificationMessage;
     }
 
     public function send_normal_mail($email_to_send_to, $email_subject, $email_msg){
