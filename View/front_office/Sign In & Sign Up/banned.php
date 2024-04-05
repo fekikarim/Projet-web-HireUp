@@ -21,6 +21,20 @@
     
   </head>
 
+<?php
+
+include '../../../Controller/user_con.php';
+include '../../../Model/user.php';
+
+// Création d'une instance du contrôleur des événements
+$userC = new userCon("user");
+
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+
+?>
+
   <body>
     <div class="preloader">
       <div class="preloader_image"></div>
@@ -75,9 +89,9 @@
             <div class="row align-items-center">
               <div class="col-lg-4">
                 <div
-                  class="d-lg-flex justify-content-lg-end align-items-lg-center"
+                class="d-lg-flex justify-content-lg-end align-items-lg-center"
                 >
-                  <span class="social-icons top">
+                <span class="social-icons top">
                     <a
                       href="https://www.facebook.com/profile.php?id=61557532202485"
                       class="fa fa-facebook"
@@ -107,6 +121,10 @@
                 </div>
               </div>
               <div class="col-lg-4">
+        
+                <!--  login place -->
+                <?php include('../../../View/back_office/header_bar.php') ?>
+                
                 <button class="btn-outline-darkgrey d-none d-lg-block">
                   Looking for Staff?
                 </button>

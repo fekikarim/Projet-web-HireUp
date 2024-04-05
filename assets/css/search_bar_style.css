@@ -1,0 +1,11 @@
+.search-container {
+    display: flex;
+}
+
+.search-container div {
+    margin-right: 10px;
+}
+
+.search-input {
+    flex: 1;
+}
