@@ -13,15 +13,15 @@ if (session_status() == PHP_SESSION_NONE) {
 if(isset($_SESSION['user id'])) {
     $user_id = htmlspecialchars($_SESSION['user id']);
 
-    $user_banned = $userC->get_user_banned_by_id($res);
+    $user_banned = $userC->get_user_banned_by_id($user_id);
 
     if ($user_banned == "false"){
 
-        $user_verified = $userC->get_user_verified_by_id($res);
+        $user_verified = $userC->get_user_verified_by_id($user_id);
 
         if ($user_verified == "true"){
             echo("Your verified ");
-            echo("Welcome user id : " . $res);
+            echo("Welcome user id : " . $user_id);
 
             #header('Location: ../../../View/front_office/Sign In & Sign Up/authentication-login.php');
         }

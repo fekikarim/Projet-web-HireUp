@@ -554,8 +554,6 @@ class userCon{
         }
     }
 
-<<<<<<< HEAD
-=======
     public function get_user_role_by_id($id){
         
         $db = config::getConnexion();
@@ -594,7 +592,113 @@ class userCon{
         }
     }
 
->>>>>>> origin/users-manager
+    public function sortUser($by){
+
+        
+        $sql = "SELECT * FROM $this->tab_name";
+        
+        if ($by == "everything"){
+            $sql .= " ORDER BY id";
+        }
+        else{
+            $sql .= " ORDER BY $by";
+        }
+
+        $db = config::getConnexion();
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare($sql);
+            $query->execute();
+        
+            $liste = $query->fetchAll(PDO::FETCH_ASSOC);
+            //echo "SQL Query: " . $query->queryString;
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }        
+
+    }
+
+    public function searchUser($by, $keyword, $role, $verified, $banned){
+
+        if ($by == "everything"){
+            $sql = "SELECT * FROM $this->tab_name WHERE email LIKE '%$keyword%' OR user_name LIKE '%$keyword%' OR password LIKE '%$keyword%' OR id LIKE '%$keyword%'";
+        }
+        else{
+            $sql = "SELECT * FROM $this->tab_name WHERE $by LIKE '%$keyword%'";
+        }
+
+        if ($role != "none"){
+            $sql .= " AND role = '$role'";
+        }
+
+        if ($verified != "none"){
+            $sql .= " AND verified = '$verified'";
+        }
+
+        if ($banned != "none"){
+            $sql .= " AND banned = '$banned'";
+        }
+
+        $db = config::getConnexion();
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare($sql);
+            $query->execute();
+        
+            $liste = $query->fetchAll(PDO::FETCH_ASSOC);
+            //echo "SQL Query: " . $query->queryString;
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }        
+
+    }
+
+    public function searchUserSorted($by, $keyword, $role, $verified, $banned){
+
+        if ($by == "everything"){
+            $sql = "SELECT * FROM $this->tab_name WHERE email LIKE '%$keyword%' OR user_name LIKE '%$keyword%' OR password LIKE '%$keyword%' OR id LIKE '%$keyword%'";
+        }
+        else{
+            $sql = "SELECT * FROM $this->tab_name WHERE $by LIKE '%$keyword%'";
+        }
+
+        if ($role != "none"){
+            $sql .= " AND role = '$role'";
+        }
+
+        if ($verified != "none"){
+            $sql .= " AND verified = '$verified'";
+        }
+
+        if ($banned != "none"){
+            $sql .= " AND banned = '$banned'";
+        }
+
+        // add order by
+        if ($by == "everything"){
+            $sql .= " ORDER BY id";
+        }
+        else{
+            $sql .= " ORDER BY $by";
+        }
+
+        $db = config::getConnexion();
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare($sql);
+            $query->execute();
+        
+            $liste = $query->fetchAll(PDO::FETCH_ASSOC);
+            //echo "SQL Query: " . $query->queryString;
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }        
+
+    }
+
 }
 
 

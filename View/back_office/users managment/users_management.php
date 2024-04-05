@@ -8,6 +8,8 @@
     <link rel="shortcut icon" type="../../../assets/image/png" href="../../../assets/images/logos/HireUp_icon.ico" />
     <link rel="stylesheet" href="../../../assets/css/styles.min.css" />
 
+    <link rel="stylesheet" href="../../../assets/css/search_bar_style.css" />
+
     <style>
         .logo-img {
             margin: 0 auto;
@@ -31,12 +33,59 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+if (isset($_GET['search_inp'])){
+    $clickedBtn = $_GET['search_btn'];
+    if ($clickedBtn == "search"){
+        echo "no sort";
+        $keyword = trim($_GET['search_inp']);
+        $search_by = trim($_GET['sl_search_type']);
+        $role = trim($_GET['sl_role']);
+        $verified = trim($_GET['sl_verified']);
+        $banned = trim($_GET['sl_banned']);
 
-// Récupération de la liste des événements
-$users = $userC->listUsers();
 
-
-
+        // Récupération de la liste des événements
+        if (str_replace(' ', '', $keyword) == '') {
+            if ( ($role == "none") && ($verified == "none") && ($banned == "none")){
+                $users = $userC->listUsers();
+            }
+            else{
+                $users = $userC->searchUser($search_by, $keyword, $role, $verified, $banned);
+            }
+        }
+        else{
+            $users = $userC->searchUser($search_by, $keyword, $role, $verified, $banned);
+        }
+    }
+    elseif ($clickedBtn == "sort"){
+        echo "sort";
+        $keyword = trim($_GET['search_inp']);
+        $search_by = trim($_GET['sl_search_type']);
+        $role = trim($_GET['sl_role']);
+        $verified = trim($_GET['sl_verified']);
+        $banned = trim($_GET['sl_banned']);
+    
+    
+        // Récupération de la liste des événements
+        if (str_replace(' ', '', $keyword) == '') {
+            if ( ($role == "none") && ($verified == "none") && ($banned == "none")){
+                $users = $userC->sortUser($search_by);
+            }
+            else{
+                $users = $userC->searchUserSorted($search_by, $keyword, $role, $verified, $banned);
+            }
+        }
+        else{
+            $users = $userC->searchUserSorted($search_by, $keyword, $role, $verified, $banned);
+        }
+    }
+    else{
+        $users = $userC->listUsers();
+    }
+}
+else{
+    $users = $userC->listUsers();
+}
 
 ?>
 
@@ -45,149 +94,19 @@ $users = $userC->listUsers();
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
         <!-- Sidebar Start -->
-        <aside class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div>
-                <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a title="#" href="./index.html" class="text-nowrap logo-img">
-                        <img src="../../../assets/images/logos/HireUp_lightMode.png" alt="" width="175" height="73">
-                    </a>
-                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                        <i class="ti ti-x fs-8"></i>
-                    </div>
-                </div>
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-                    <ul id="sidebarnav">
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Home</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./index.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-layout-dashboard"></i>
-                                </span>
-                                <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">MENU</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-user"></i>
-                                </span>
-                                <span class="hide-menu">User</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./profile_management.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-user-circle"></i>
-                                </span>
-                                <span class="hide-menu">Profile</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./job_management.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-tie"></i>
-                                </span>
-                                <span class="hide-menu">Jobs</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-message"></i>
-                                </span>
-                                <span class="hide-menu">Messages</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-article"></i>
-                                </span>
-                                <span class="hide-menu">Article</span>
-                            </a>
-                        </li>
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">AUTH</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-login"></i>
-                                </span>
-                                <span class="hide-menu">Login</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-user-plus"></i>
-                                </span>
-                                <span class="hide-menu">Register</span>
-                            </a>
-                        </li>
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">EXTRA</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-mood-happy"></i>
-                                </span>
-                                <span class="hide-menu">Icons</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-aperture"></i>
-                                </span>
-                                <span class="hide-menu">Sample Page</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
-                        <div class="d-flex">
-                            <div class="unlimited-access-title me-3">
-                                <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">Upgrade to pro</h6>
-                                <a title="#" href="#" target="_blank" class="btn btn-primary fs-2 fw-semibold lh-sm">Buy
-                                    Pro</a>
-                            </div>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
+        
+        <?php include('../../../View/back_office/dashboard_side_bar.php') ?>
+
         <!--  Sidebar End -->
         <!--  Main wrapper -->
         <div class="body-wrapper">
             <!--  Header Start -->
             <header class="app-header">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <ul class="navbar-nav">
-                        <li class="nav-item d-block d-xl-none">
-                            <a title="#" class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse"
-                                href="javascript:void(0)">
-                                <i class="ti ti-menu-2"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a title="#" class="nav-link nav-icon-hover" href="javascript:void(0)">
-                                <i class="ti ti-bell-ringing"></i>
-                                <div class="notification bg-primary rounded-circle"></div>
-                            </a>
-                        </li>
-                    </ul>
+
+                    <!--  login place -->
+                    <?php include('../../../View/back_office/header_bar.php') ?>
+            
                 </nav>
             </header>
             <!--  Header End -->
@@ -245,6 +164,63 @@ $users = $userC->listUsers();
                         <div class="card-body">
                             <!-- Table for displaying existing jobs -->
                             <div class="table-responsive">
+
+                                <div>
+                                    <form action="" method="">
+                                        <div class="mb-3">
+                                            
+                                            <div class="search-container">
+                                                <div class="search-by">
+                                                    <label for="search_type">Search By:</label>
+                                                    <select class="form-select" id="sl_search_type" name="sl_search_type">
+                                                        <option value="everything">Everything</option>
+                                                        <option value="id">ID</option>
+                                                        <option value="user_name">Username</option>
+                                                        <option value="email">Email</option>
+                                                    </select>
+                                                </div>
+                                                <div class="search-input">
+                                                    <label for="search_inp">Search:</label>
+                                                    <input type="text" class="form-control" id="search_inp" name="search_inp" placeholder="Search">
+                                                </div>
+                                                <div class="search-role">
+                                                    <label for="role">Role:</label>
+                                                    <select class="form-select" id="sl_role" name="sl_role">
+                                                        <option value="none">None</option>
+                                                        <option value="user">User</option>
+                                                        <option value="admin">Admin</option>
+                                                    </select>
+                                                </div>
+                                                <div class="search-verified">
+                                                    <label for="verified">Verified:</label>
+                                                    <select class="form-select" id="sl_verified" name="sl_verified">
+                                                        <option value="none">None</option>
+                                                        <option value="true">Verified</option>
+                                                        <option value="false">Unverified</option>
+                                                    </select>
+                                                </div>
+                                                <div class="search-banned">
+                                                    <label for="banned">Authorization:</label>
+                                                    <select class="form-select" id="sl_banned" name="sl_banned">
+                                                        <option value="none">None</option>
+                                                        <option value="true">Banned</option>
+                                                        <option value="false">Unbanned</option>
+                                                    </select>
+                                                </div>
+
+                                                <div>
+                                                    <label for="search_btn"></label> <br>
+                                                    <button type="submit" class="btn btn-primary" id="search_btn" name="search_btn" value="search">Search</button>
+                                                    <button type="submit" class="btn btn-primary" id="search_btn" name="search_btn" value="sort">Sort</button>
+                                                </div>
+
+                                            </div>
+
+                                            <div id="search_error" style="color: red;"></div>
+
+                                        </div>
+                                </form>
+
                                 <table class="table text-nowrap mb-0 align-middle">
                                     <thead class="text-dark fs-4">
                                         <tr>
@@ -403,6 +379,47 @@ $users = $userC->listUsers();
         // Inject the error message into the div element
         echo ("<script>document.getElementById('success_global').innerText = '$error';</script>");
     }
+
+    // fill forms if data exists
+    // search by
+    if (isset($_GET['sl_search_type'])) {
+        // Retrieve and sanitize the error message
+        $search_by = htmlspecialchars($_GET['sl_search_type']);
+        // Inject the error message into the div element
+        echo ("<script>document.getElementById('sl_search_type').value = '$search_by';</script>");
+      }
+    
+      // search inp
+      if (isset($_GET['search_inp'])) {
+        // Retrieve and sanitize the error message
+        $keyword = htmlspecialchars($_GET['search_inp']);
+        // Inject the error message into the div element
+        echo ("<script>document.getElementById('search_inp').value = '$keyword';</script>");
+      }
+  
+      // role
+      if (isset($_GET['sl_role'])) {
+        // Retrieve and sanitize the error message
+        $role = htmlspecialchars($_GET['sl_role']);
+        // Inject the error message into the div element
+        echo ("<script>document.getElementById('sl_role').value = '$role';</script>");
+      }
+
+      // verified
+      if (isset($_GET['sl_verified'])) {
+        // Retrieve and sanitize the error message
+        $verified = htmlspecialchars($_GET['sl_verified']);
+        // Inject the error message into the div element
+        echo ("<script>document.getElementById('sl_verified').value = '$verified';</script>");
+      }
+
+      // banned
+      if (isset($_GET['sl_banned'])) {
+        // Retrieve and sanitize the error message
+        $banned = htmlspecialchars($_GET['sl_banned']);
+        // Inject the error message into the div element
+        echo ("<script>document.getElementById('sl_banned').value = '$banned';</script>");
+      }
 
   ?>
 
