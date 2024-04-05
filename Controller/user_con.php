@@ -128,8 +128,10 @@ class userCon{
 
         try {
             $req->execute();
+            return true;
         } catch (Exception $e) {
             die('Error:' . $e->getMessage());
+            return false;
         }
     }
 
@@ -552,6 +554,47 @@ class userCon{
         }
     }
 
+<<<<<<< HEAD
+=======
+    public function get_user_role_by_id($id){
+        
+        $db = config::getConnexion();
+
+        $sql = "SELECT * FROM $this->tab_name WHERE id = :id";
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result) {
+                return $result['role'];
+            } else {
+                return "error";
+            }
+
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+        
+    }
+
+    public function updateUserRole($id, $new_value)
+    {
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare("UPDATE $this->tab_name SET role = :role WHERE id = :id");
+            $query->execute(['role' => $new_value, 'id' => $id]);
+            echo $query->rowCount() . " records UPDATED successfully <br>";
+            return true;
+        } catch (PDOException $e) {
+            $e->getMessage();
+            echo($e);
+            return false;
+        }
+    }
+
+>>>>>>> origin/users-manager
 }
 
 
