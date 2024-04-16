@@ -62,7 +62,8 @@ if (
         );
 
         $recC->updateRec($reclamation, $current_id);
-        header('Location:../View/index.php');
+        $success_message = "Reclamation Updated successfully!";
+        header('Location: ../../../View\back_office\reclamations managment\recs_management.php?success_global=' . urlencode($success_message));
     } else {
         $error = "Missing information";
     }
@@ -104,7 +105,7 @@ if (
                         <div class="card-body">
                             <h5 class="card-title fw-semibold mb-4">Reclamations Management</h5>
                             <!-- Form for adding new job -->
-                            <form action="./add_rec.php" method="post">
+                            <form action="" method="post">
                                 <!-- job Information -->
                                 <div class="mb-3">
                                     <label for="sujet" class="form-label">Subject</label>
