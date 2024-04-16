@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="../../../assets/css/styles.min.css" />
-<script src="../../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <?php
 
