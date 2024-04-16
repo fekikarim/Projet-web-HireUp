@@ -15,7 +15,8 @@ if (!isset($_GET['profile_id'])) {
 }
 
 // Include database connection and profile controller
-require_once $_SERVER['DOCUMENT_ROOT'] . '/HireUp_profile/Controls/profileController.php';
+require_once __DIR__ . '/../../../Controls/profileController.php';
+
 
 // Initialize profile controller
 $profileController = new ProfileC();

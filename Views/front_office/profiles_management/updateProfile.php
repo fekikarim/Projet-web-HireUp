@@ -1,6 +1,7 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/HireUp_profile/config.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/HireUp_profile/Controls/profileController.php';
+require_once __DIR__ . '/../../../config.php';
+require_once __DIR__ . '/../../../Controls/profileController.php';
+
 
 // Check if profile ID, attribute, and value are set
 if (isset($_POST['profile_id'], $_POST['attribute'], $_POST['new_data'])) {

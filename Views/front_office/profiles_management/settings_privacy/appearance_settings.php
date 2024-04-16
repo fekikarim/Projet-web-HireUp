@@ -30,7 +30,8 @@ if (isset($_POST['appearance'])) {
     exit();
 }
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/HireUp_profile/Controls/profileController.php';
+require_once __DIR__ . '/../../../../Controls/profileController.php';
+
 
 // Check if the request method is GET and if id_emp is set in the URL
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['profile_id'])) {

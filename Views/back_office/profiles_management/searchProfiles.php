@@ -1,6 +1,7 @@
 <?php
 // Include database connection code
-require_once $_SERVER['DOCUMENT_ROOT'] . '/HireUp_profile/Controls/profileController.php';
+require_once __DIR__ . '/../../../Controls/profileController.php';
+
 
 // Check if the search term is provided
 if (isset($_GET['query'])) {

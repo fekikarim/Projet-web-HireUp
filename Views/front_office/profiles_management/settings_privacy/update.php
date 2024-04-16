@@ -1,5 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/HireUp_profile/Controls/profileController.php';
+require_once __DIR__ . '/../../../../Controls/profileController.php';
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['profile_id'])) {
     // Retrieve the profile information from the form

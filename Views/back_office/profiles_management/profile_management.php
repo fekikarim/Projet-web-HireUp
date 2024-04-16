@@ -1,12 +1,13 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/HireUp_profile/Controls/profileController.php';
+require_once __DIR__ . '/../../../Controls/profileController.php';
+
 
 // Create an instance of the EmployeC class
 $profileController = new ProfileC();
 
 //tset
-$test = '056972';
+$test = '924714';
 
 // Call the method to fetch the employees' data
 $profiles = $profileController->listProfile();

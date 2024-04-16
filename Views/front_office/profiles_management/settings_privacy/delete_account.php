@@ -1,5 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/HireUp_profile/Controls/profileController.php';
+require_once __DIR__ . '/../../../../Controls/profileController.php';
+
 
 if (isset($_GET['profile_id'])) {
     $id = $_GET['profile_id'];
