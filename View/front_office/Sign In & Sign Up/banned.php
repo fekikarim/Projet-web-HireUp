@@ -18,6 +18,8 @@
     <script src="../../../front office assets/js/vendor/modernizr-2.6.2.min.js"></script>
 
     <link href="../../../front office assets/images/HireUp_icon.ico" rel="icon">
+
+    <script src="../../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     
   </head>
 
