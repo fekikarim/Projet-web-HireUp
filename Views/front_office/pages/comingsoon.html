@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HireUp</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/font-awesome.css" />
+    <link rel="stylesheet" href="css/main.css" class="color-switcher-link" />
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+
+    <link href="images/HireUp_icon.ico" rel="icon">
+    
+  </head>
+
+  <body>
+    <div class="preloader">
+      <div class="preloader_image"></div>
+    </div>
+
+    <!-- search modal -->
+    <div
+      class="modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="search_modal"
+      id="search_modal"
+    >
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="widget widget_search">
+        <form
+          method="get"
+          class="searchform search-form"
+          action="http://webdesign-finder.com/"
+        >
+          <div class="form-group">
+            <input
+              type="text"
+              value=""
+              name="search"
+              class="form-control"
+              placeholder="Search keyword"
+              id="modal-search-input"
+            />
+          </div>
+          <button type="submit" class="btn">Search</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- wrappers for visual page editor and boxed version of template -->
+    <div id="canvas">
+      <div id="box_wrapper">
+        <!-- template sections -->
+
+        <!--topline section visible only on small screens|-->
+
+        <section class="page_toplogo ls s-py-15 text-center">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-lg-4">
+                <div
+                  class="d-lg-flex justify-content-lg-end align-items-lg-center"
+                >
+                  <span class="social-icons top">
+                    <a
+                      href="https://www.facebook.com/profile.php?id=61557532202485"
+                      class="fa fa-facebook"
+                      title="facebook"
+                    ></a>
+                    <a
+                      href="https://www.instagram.com/hire.up.tn/"
+                      class="fa fa-instagram"
+                      title="instagram"
+                    ></a>
+                    <a href="#" class="fa fa-google" title="google"></a>
+                    <a href="#" class="fa fa-linkedin" title="linkedin"></a>
+                    <a href="#" class="fa fa-pinterest-p" title="linkedin"></a>
+                  </span>
+                </div>
+              </div>
+              <div class="col-lg-4 text-center">
+                <div class="text-center">
+                  <div class="header_logo_center">
+                    <a href="index.html" class="logo">
+                      <span class="logo_text">Hire</span>
+                      <img src="images\HireUp_logo.png" alt="" />
+                      <span class="logo_subtext">Up</span>
+                    </a>
+                  </div>
+                  <!-- eof .header_left_logo -->
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <button class="btn-outline-darkgrey d-none d-lg-block">
+                  Looking for Staff?
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- header with single Bootstrap column only for navigation and includes. Used with topline and toplogo sections. Menu toggler must be in toplogo section -->
+        <header
+          class="page_header ls s-bordertop nav-narrow justify-nav-center text-center"
+        >
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-xl-12">
+                <div class="nav-wrap">
+                  <!-- main nav start -->
+                  <nav class="top-nav">
+                    <ul class="nav sf-menu">
+                      <li class="active">
+                        <a href="index.html">Homepage</a>
+                        <ul>
+                          <li>
+                            <a href="index.html">Homepage</a>
+                          </li>
+                          <li>
+                            <a href="#">Static Page</a>
+                          </li>
+                          <li>
+                            <a href="#">Single Page</a>
+                          </li>
+                        </ul>
+                      </li>
+
+                      <li>
+                        <a href="about.html">Pages</a>
+                        <ul>
+                          <li>
+                            <a href="faq.html">FAQ</a>
+                          </li>
+                          <li>
+                            <a href="team.html">Team</a>
+                            <ul>
+                              <li>
+                                <a href="team-single.html">Team Member</a>
+                              </li>
+                            </ul>
+                          </li>
+
+                          <li>
+                            <a href="#">Shop</a>
+                            <ul>
+                              <li>
+                                <a href="#">Shop</a>
+                              </li>
+                              <li>
+                                <a href="#">Single Product</a>
+                              </li>
+                              <li>
+                                <a href="#">Shop Cart</a>
+                              </li>
+                              <li>
+                                <a href="#">Shop Checkout</a>
+                              </li>
+                              <li>
+                                <a href="#">Order Received</a>
+                              </li>
+                            </ul>
+                          </li>
+
+                          <li>
+                            <a href="services2.html">Services</a>
+                            <ul>
+                              <li>
+                                <a href="#">Services 1</a>
+                              </li>
+                              <li>
+                                <a href="services2.html">Services 2</a>
+                              </li>
+                              <li>
+                                <a href="#">Services 3</a>
+                              </li>
+                              <li>
+                                <a href="service-single.html">Single Service</a>
+                              </li>
+                            </ul>
+                          </li>
+
+                          <!-- shop -->
+
+                          <!-- features -->
+                          <li>
+                            <a href="#">Shortcodes</a>
+                            <ul>
+                              <li>
+                                <a href="#">Typography</a>
+                              </li>
+                              <li>
+                                <a href="#">Buttons</a>
+                              </li>
+                              <li>
+                                <a href="#">Icon Boxes</a>
+                              </li>
+                              <li>
+                                <a href="#">Progress</a>
+                              </li>
+                              <li>
+                                <a href="#">Tabs &amp; Collapse</a>
+                              </li>
+                              <li>
+                                <a href="#">Bootstrap Elements</a>
+                              </li>
+                              <li>
+                                <a href="#">Animation</a>
+                              </li>
+                              <li>
+                                <a href="#">Template Icons</a>
+                              </li>
+                              <li>
+                                <a href="#">Social Icons</a>
+                              </li>
+                            </ul>
+                          </li>
+                          <!-- eof shortcodes -->
+
+                          <!-- events -->
+                          <li>
+                            <a href="events-left.html">Events</a>
+                            <ul>
+                              <li>
+                                <a href="events-left.html">Left Sidebar</a>
+                              </li>
+                              <li>
+                                <a href="#">Right Sidebar</a>
+                              </li>
+                              <li>
+                                <a href="#">Full Width</a>
+                              </li>
+                              <li>
+                                <a href="event-single-left.html"
+                                  >Single Event</a
+                                >
+                                <ul>
+                                  <li>
+                                    <a href="event-single-left.html"
+                                      >Left Sidebar</a
+                                    >
+                                  </li>
+                                  <li>
+                                    <a href="#">Right Sidebar</a>
+                                  </li>
+                                  <li>
+                                    <a href="#">Full Width</a>
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <!-- eof events -->
+
+                          <li>
+                            <a href="comingsoon.html">Comingsoon</a>
+                          </li>
+
+                          <li>
+                            <a href="404.html">404</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <!-- eof pages -->
+
+                      <li>
+                        <a href="about.html">About</a>
+                      </li>
+
+                      <li>
+                        <a href="emloyers.html">Emloyers</a>
+                      </li>
+
+                      <li>
+                        <a href="candidates.html">Candidates</a>
+                      </li>
+
+                      <!-- blog -->
+                      <li>
+                        <a href="blog-left.html">Blog</a>
+                        <ul>
+                          <li>
+                            <a href="#">Right Sidebar</a>
+                          </li>
+                          <li>
+                            <a href="blog-left.html">Left Sidebar</a>
+                          </li>
+                          <li>
+                            <a href="#">No Sidebar</a>
+                          </li>
+                          <li>
+                            <a href="#">Post</a>
+                            <ul>
+                              <li>
+                                <a href="#">Right Sidebar</a>
+                              </li>
+                              <li>
+                                <a href="blog-single-left.html">Left Sidebar</a>
+                              </li>
+                              <li>
+                                <a href="#">No Sidebar</a>
+                              </li>
+                            </ul>
+                          </li>
+
+                          <li>
+                            <a href="#">Video Post</a>
+                            <ul>
+                              <li>
+                                <a href="#">Right Sidebar</a>
+                              </li>
+                              <li>
+                                <a href="blog-single-video-left.html"
+                                  >Left Sidebar</a
+                                >
+                              </li>
+                              <li>
+                                <a href="#">No Sidebar</a>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <!-- eof blog -->
+
+                      <li>
+                        <a href="#">Features</a>
+                        <div class="mega-menu">
+                          <ul class="mega-menu-row">
+                            <li class="mega-menu-col">
+                              <a href="#">Headers</a>
+                              <ul>
+                                <li>
+                                  <a href="header1.html">Header Type 1</a>
+                                </li>
+                                <li>
+                                  <a href="#">Header Type 2</a>
+                                </li>
+                                <li>
+                                  <a href="#">Header Type 3</a>
+                                </li>
+                                <li>
+                                  <a href="#">Header Type 4</a>
+                                </li>
+                                <li>
+                                  <a href="#">Header Type 5</a>
+                                </li>
+                                <li>
+                                  <a href="#">Header Type 6</a>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class="mega-menu-col">
+                              <a href="#">Side Menus</a>
+                              <ul>
+                                <li>
+                                  <a href="#">Push Left</a>
+                                </li>
+                                <li>
+                                  <a href="#">Push Right</a>
+                                </li>
+                                <li>
+                                  <a href="#">Slide Left</a>
+                                </li>
+                                <li>
+                                  <a href="#">Slide Right</a>
+                                </li>
+                                <li>
+                                  <a href="#">Sticked Left</a>
+                                </li>
+                                <li>
+                                  <a href="#">Sticked Right</a>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class="mega-menu-col">
+                              <a href="title1.html">Title Sections</a>
+                              <ul>
+                                <li>
+                                  <a href="title1.html">Title section 1</a>
+                                </li>
+                                <li>
+                                  <a href="#">Title section 2</a>
+                                </li>
+                                <li>
+                                  <a href="#">Title section 3</a>
+                                </li>
+                                <li>
+                                  <a href="#">Title section 4</a>
+                                </li>
+                                <li>
+                                  <a href="#">Title section 5</a>
+                                </li>
+                                <li>
+                                  <a href="#">Title section 6</a>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class="mega-menu-col">
+                              <a href="footer1.html">Footers</a>
+                              <ul>
+                                <li>
+                                  <a href="footer1.html">Footer Type 1</a>
+                                </li>
+                                <li>
+                                  <a href="#">Footer Type 2</a>
+                                </li>
+                                <li>
+                                  <a href="#">Footer Type 3</a>
+                                </li>
+                                <li>
+                                  <a href="#">Footer Type 4</a>
+                                </li>
+                                <li>
+                                  <a href="#">Footer Type 5</a>
+                                </li>
+                                <li>
+                                  <a href="#">Footer Type 6</a>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class="mega-menu-col">
+                              <a href="copyright4.html">Copyright</a>
+
+                              <ul>
+                                <li>
+                                  <a href="#">Copyright 1</a>
+                                </li>
+                                <li>
+                                  <a href="#">Copyright 2</a>
+                                </li>
+                                <li>
+                                  <a href="#">Copyright 3</a>
+                                </li>
+                                <li>
+                                  <a href="copyright4.html">Copyright 4</a>
+                                </li>
+                                <li>
+                                  <a href="#">Copyright 5</a>
+                                </li>
+                                <li>
+                                  <a href="#">Copyright 6</a>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                      <!-- eof features -->
+
+                      <!-- gallery -->
+                      <li>
+                        <a href="#">Gallery</a>
+                        <ul>
+                          <li>
+                            <a href="#">Gallery Regular</a>
+                            <ul>
+                              <li>
+                                <a href="#">2 columns</a>
+                              </li>
+                              <li>
+                                <a href="gallery-regular-3-cols.html"
+                                  >3 columns</a
+                                >
+                              </li>
+                              <li>
+                                <a href="#">4 columns fullwidth</a>
+                              </li>
+                            </ul>
+                          </li>
+
+                          <li>
+                            <a href="#">Gallery Extended</a>
+                            <ul>
+                              <li>
+                                <a href="#">2 columns</a>
+                              </li>
+                              <li>
+                                <a href="gallery-excerpt-3-cols.html"
+                                  >3 column</a
+                                >
+                              </li>
+                              <li>
+                                <a href="#">4 columns fullwdith</a>
+                              </li>
+                            </ul>
+                          </li>
+
+                          <li>
+                            <a href="#">Tiled Gallery</a>
+                          </li>
+
+                          <li>
+                            <a href="#">Gallery Item</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <!-- eof Gallery -->
+
+                      <!-- contacts -->
+                      <li>
+                        <a href="contact2.html">Contacts</a>
+                        <ul>
+                          <li>
+                            <a href="contact2.html">Contact 1</a>
+                          </li>
+                          <li>
+                            <a href="#">Contact 2</a>
+                          </li>
+                          <li>
+                            <a href="#">Contact 3</a>
+                          </li>
+                          <li>
+                            <a href="#">Contact 4</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <!-- eof contacts -->
+                    </ul>
+                  </nav>
+                  <!-- eof main nav -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- header toggler -->
+
+          <span class="toggle_menu">
+            <span></span>
+          </span>
+        </header>
+
+        <section class="page_title cs gradientvertical-background s-py-25">
+          <div class="container">
+            <div class="row">
+              <div class="divider-50"></div>
+
+              <div class="col-md-12 text-center">
+                <h1 class="">Coming Soon</h1>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="index.html">Home</a>
+                  </li>
+
+                  <li class="breadcrumb-item active">Coming Soon</li>
+                </ol>
+              </div>
+
+              <div class="divider-50"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="ls page_title s-py-130">
+          <div class="container">
+            <div class="row">
+              <div class="d-none d-lg-block divider-70"></div>
+
+              <div class="col-lg-12 text-center comingsoon">
+                <h2 class="Comingsoon">Coming Soon!</h2>
+                <p>Stay Tuned!</p>
+
+                <div id="comingsoon-countdown"></div>
+                <!--
+					use "data-date" attribute with your date value to set date that you need to count to
+					<div id="comingsoon-countdown" data-date="March 29, 2018 10:00:00"></div>
+				-->
+              </div>
+
+              <div class="d-none d-lg-block divider-70"></div>
+            </div>
+          </div>
+        </section>
+
+        <footer
+          class="page_footer ds s-py-sm-20 s-pt-md-75 s-pb-md-50 s-py-lg-130 c-gutter-60 pb-20 half-section"
+        >
+          <div class="container">
+            <div class="row">
+              <div
+                class="footer col-md-4 text-center animate"
+                data-animation="fadeInUp"
+              >
+                <div class="footer widget text-center">
+                  <h3 class="widget-title title-menu">Explore</h3>
+                  <ul class="footer-menu">
+                    <li>
+                      <a href="#">Job Search</a>
+                    </li>
+                    <li class="menu1">
+                      <a>Consultants</a>
+                    </li>
+                    <li>
+                      <a href="#">Reviews</a>
+                    </li>
+                    <li class="menu1">
+                      <a>Insights</a>
+                    </li>
+                    <li>
+                      <a href="#">Survey</a>
+                    </li>
+                    <li class="menu1">
+                      <a>Careers</a>
+                    </li>
+                    <li class="border-bottom-0">
+                      <a href="#">Contact</a>
+                    </li>
+                    <li class="menu1 border-bottom-0">
+                      <a>About</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div
+                class="footer col-md-4 text-center animate"
+                data-animation="fadeInUp"
+              >
+              <div class="text-center">
+                <div class="header_logo_center footer-logo-ds">
+                  <a href="index.html" class="logo">
+                    <span class="logo_text">Hire</span>
+                    <img src="images/light_logo.png" alt="" />
+                    <span class="logo_subtext">Up</span>
+                  </a>
+                </div>
+                <!-- eof .header_left_logo -->
+              </div>
+                <div class="widget pt-20">
+                  Duis autem vel eum iriure dolor in hendrerit in vulputate
+                  velit esse molestie consequat, vel illum dolore eu feugiat
+                  nulla.
+                </div>
+                <div class="widget">
+                  <div class="media">
+                    <i class="mx-10 color-main fa fa-map-marker"></i>
+                    4518 Spirit Drive, Deland, FL 32720
+                  </div>
+
+                  <div class="media">
+                    <i class="mx-10 color-main fa fa-phone"></i>
+                    101 123 456 789
+                  </div>
+
+                  <div class="media text-center link">
+                    <i class="mx-10 text-center color-main fa fa-envelope"></i>
+                    <a href="#">example@example.com</a>
+                  </div>
+                </div>
+
+                <div class="author-social">
+                  <a
+				  title="#"
+				  href="https://www.facebook.com/profile.php?id=61557532202485"
+                    class="fa fa-facebook color-bg-icon rounded-icon"
+                  ></a>
+                  <a
+				  title="#"
+				  href="https://www.instagram.com/hire.up.tn/"
+                    class="fa fa-instagram color-bg-icon rounded-icon"
+                  ></a>
+                  <a
+				  title="#"
+                    href="#"
+                    class="fa fa-google color-bg-icon rounded-icon"
+                  ></a>
+                </div>
+              </div>
+              <div
+                class="footer col-md-4 text-center animate"
+                data-animation="fadeInUp"
+              >
+                <div class="widget widget_mailchimp">
+                  <h3 class="widget-title">Newsletter</h3>
+
+                  <p>
+                    Enter your email address here always to be updated. We
+                    promise not to spam!
+                  </p>
+
+                  <form class="signup">
+                    <label for="mailchimp_email">
+                      <span class="screen-reader-text">Subscribe:</span>
+                    </label>
+
+                    <input
+                      id="mailchimp_email"
+                      name="email"
+                      type="email"
+                      class="form-control mailchimp_email"
+                      placeholder="Email Address"
+                    />
+
+                    <button type="submit" class="search-submit">
+                      Subscribe
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+      <!-- eof #box_wrapper -->
+    </div>
+    <!-- eof #canvas -->
+
+    <script src="js/compressed.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/switcher.js"></script>
+  </body>
+</html>
