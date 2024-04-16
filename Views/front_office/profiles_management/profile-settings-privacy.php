@@ -8,10 +8,10 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }*/
 
-// Check if profile ID is provided in the URL
+// Check if profile ID is provided in the URL and is a positive integer
 if (!isset($_GET['profile_id'])) {
-    header('Location: ../pages/404.php');
-    exit();
+    // Display a friendly message or redirect the user to a proper error page
+    exit("Invalid profile ID provided");
 }
 
 // Include database connection and profile controller
@@ -26,10 +26,12 @@ $profile_id = $_GET['profile_id'];
 // Fetch profile data from the database
 $profile = $profileController->getProfileById($profile_id);
 
+
+
 // Check if profile data is retrieved successfully
 if (!$profile) {
-    header('Location: ../pages/404.php');
-    exit();
+    // Display a friendly message or redirect the user to a proper error page
+    exit("Profile data not found");
 }
 
 ?>
@@ -211,7 +213,7 @@ if (!$profile) {
                                     <button type="button" class="card-btn">Name, location, and industry</button>
                                     <button type="button" class="card-btn">Personal demographic information</button>
                                     <button type="button" class="card-btn">Verifications</button>
-                                    <button type="button" class="card-btn" onclick="redirectToProfileEdit(<?php echo $profile['profile_id']; ?>)">Edit profile details</button>
+                                    <button type="button" class="card-btn" onclick="redirectToProfileEdit()">Edit profile details</button>
                                 </div>
                             </div>
                         </div>
@@ -220,7 +222,7 @@ if (!$profile) {
                                 <div class="card-body">
                                     <h5 class="card-title">Display</h5>
                                     <hr>
-                                    <button type="button" class="card-btn" onclick="redirectToAppearence(<?php echo $profile['profile_id']; ?>)">Dark mode</button>
+                                    <button type="button" class="card-btn" onclick="redirectToAppearence()">Dark mode</button>
                                 </div>
                             </div>
                         </div>
@@ -232,7 +234,7 @@ if (!$profile) {
                                 <div class="card-body">
                                     <h5 class="card-title">General Preferences</h5>
                                     <hr>
-                                    <button type="button" class="card-btn" onclick="redirectToLanguage(<?php echo $profile['profile_id']; ?>)">Language</button>
+                                    <button type="button" class="card-btn" onclick="redirectToLanguage()">Language</button>
                                     <button type="button" class="card-btn">Content language</button>
                                     <button type="button" class="card-btn">Sound effects</button>
                                     <button type="button" class="card-btn">Showing profile photos</button>
@@ -270,7 +272,7 @@ if (!$profile) {
                                     <h5 class="card-title">Account Management</h5>
                                     <hr>
                                     <button type="button" class="card-btn">Hibernate account</button>
-                                    <button type="button" class="card-btn" onclick="redirectToProfileClose(<?php echo $profile['profile_id']; ?>)">Close account</button>
+                                    <button type="button" class="card-btn" onclick="redirectToProfileClose()">Close account</button>
                                 </div>
                             </div>
                         </div>
@@ -292,29 +294,39 @@ if (!$profile) {
 
 
     <script>
-        function redirectToProfileEdit(profileId) {
+        function redirectToProfileEdit() {
+            var profileId = getProfileIdFromUrl();
             var url = "./settings_privacy/edit-profile.php?profile_id=" + profileId;
             window.location.href = url;
         }
 
-        function redirectToProfileClose(profileId) {
+        function redirectToProfileClose() {
+            var profileId = getProfileIdFromUrl();
             var url = "./settings_privacy/close_account.php?profile_id=" + profileId;
             window.location.href = url;
         }
 
-        function redirectToLanguage(profileId) {
+        function redirectToLanguage() {
+            var profileId = getProfileIdFromUrl();
             var url = "./settings_privacy/language_settings.php?profile_id=" + profileId;
             window.location.href = url;
         }
 
-        function redirectToAppearence(profileId) {
+        function redirectToAppearence() {
+            var profileId = getProfileIdFromUrl();
             var url = "./settings_privacy/appearance_settings.php?profile_id=" + profileId;
             window.location.href = url;
         }
+
+        function getProfileIdFromUrl() {
+            // Get the current URL
+            var url = window.location.href;
+            // Extract the profile_id parameter value from the URL
+            var profileId = url.split('profile_id=')[1];
+            // Return the extracted profile ID
+            return profileId;
+        }
     </script>
-
-
-
 
 </body>
 

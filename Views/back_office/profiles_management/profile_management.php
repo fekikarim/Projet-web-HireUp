@@ -6,7 +6,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/HireUp_profile/Controls/profileContro
 $profileController = new ProfileC();
 
 //tset
-$test = '732680';
+$test = '056972';
 
 // Call the method to fetch the employees' data
 $profiles = $profileController->listProfile();
