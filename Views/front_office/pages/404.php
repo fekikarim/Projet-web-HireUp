@@ -81,7 +81,7 @@
                     </li>
 
                     <li>
-                      <a href="../../back_office/profiles_management/profile_management.php">Profile</a>
+                      <a href="../back_office/profiles_management/profile_management.php">Profile</a>
                     </li>
                     <!-- eof pages -->
 
