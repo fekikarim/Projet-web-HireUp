@@ -28,7 +28,7 @@
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                             <span class="hide-menu">Managements</span>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item <?= ($active_page == 'user') ? 'selected' : ''; ?> ">
                             <a class="sidebar-link" href="../../../View/back_office/users managment/users_management.php" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-user"></i>
@@ -36,7 +36,7 @@
                                 <span class="hide-menu">User</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item ">
                             <a class="sidebar-link" href="./profile_management.html" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-user-circle"></i>

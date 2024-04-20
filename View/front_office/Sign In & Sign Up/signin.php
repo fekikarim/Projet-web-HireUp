@@ -10,6 +10,8 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+//MARK: important cz it checks if the user_id is set or not
+// check if its already logged in
 if(isset($_SESSION['user id'])) {
     $user_id = htmlspecialchars($_SESSION['user id']);
 
@@ -35,6 +37,7 @@ if(isset($_SESSION['user id'])) {
     }
 
 }
+// logging in
 else
 {
 
@@ -78,6 +81,7 @@ else
                 if (session_status() == PHP_SESSION_NONE) {
                     session_start();
                 }
+                //MARK: - Set the user id in the session
                 $_SESSION['user id'] = $res; // Set the user id in the session
 
                 $user_banned = $userC->get_user_banned_by_id($res);

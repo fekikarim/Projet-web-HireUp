@@ -20,7 +20,7 @@ if (
         !empty($_POST["user_password"])
     ) {
         
-        $user = new User(
+        /*$user = new User(
             $userC->generateUserId(5),
             $_POST['user_name'],
             $_POST['user_email'],
@@ -28,7 +28,24 @@ if (
             "user",
             "false",
             "false"
+        );*/
+
+        $hashed_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
+        
+        // get current date
+        $currentDate = date("Y-m-d");
+        
+        $user = new User(
+            $userC->generateUserId(5),
+            $_POST['user_name'],
+            $_POST['user_email'],
+            $hashed_password,
+            "user",
+            "false",
+            "false",
+            $currentDate
         );
+
 
         # do some checks first
         # check user name existence

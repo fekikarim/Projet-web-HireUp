@@ -31,6 +31,11 @@ include '../../../Controller/user_con.php';
     $user_name_email = htmlspecialchars($_GET['user_name_email']);
     
     $userC = new userCon("user");
+
+    //get the mail
+    $temp_user_id = $userC->get_user_id_by_username_or_email($user_name_email);
+    $user_email = $userC->get_user_email_by_id($temp_user_id);
+
     $mail_sent_res = $userC->send_password_reset_code($user_name_email);
 
     if ($mail_sent_res == "wrong email"){
@@ -69,6 +74,10 @@ include '../../../Controller/user_con.php';
                   <img src="../../../assets/images/logos/HireUp_lightMode.png" alt="" width="175" height="73">
                 </a>
                 <p class="text-center">Your Social Campaigns</p>
+                <div class="d-flex align-items-center justify-content-center">
+                    <p class="fs-4 mb-0 fw-bold">Email :</p>
+                    <a class="text-primary fw-bold ms-2" href="#"><?php echo($user_email); ?></a>
+                </div>
                 <form method="post" action="verif_code.php?user_name_email=<?php echo htmlspecialchars($_GET['user_name_email']); ?>">
                   <div class="mb-3">
                     <label for="reset_code_inp" class="form-label">Verification Code</label>

@@ -8,6 +8,7 @@ if (isset($_POST['user_con_password'])) {
 
     // Retrieve and sanitize the error message
     $user_new_password = htmlspecialchars($_POST['user_con_password']);
+    $hashed_password = password_hash($user_new_password, PASSWORD_DEFAULT);
     
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
@@ -16,7 +17,7 @@ if (isset($_POST['user_con_password'])) {
         $user_id = htmlspecialchars($_SESSION['user id']);
         
         $userC = new userCon("user");
-        $res = $userC->updateUserPassword($user_id, $user_new_password);
+        $res = $userC->updateUserPassword($user_id, $hashed_password);
 
         #echo($res);
         

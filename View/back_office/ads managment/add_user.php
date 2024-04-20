@@ -22,7 +22,7 @@ if (
         !empty($_POST["role"])
     ) {
         
-        /*$user = new User(
+        $user = new User(
             $userC->generateUserId(5),
             $_POST['user_name'],
             $_POST['email'],
@@ -30,22 +30,6 @@ if (
             $_POST['role'],
             "false",
             "false"
-        );*/
-
-        $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
-        // get current date
-        $currentDate = date("Y-m-d");
-
-        $user = new User(
-            $userC->generateUserId(5),
-            $_POST['user_name'],
-            $_POST['email'],
-            $hashed_password,
-            $_POST['role'],
-            "false",
-            "false",
-            $currentDate
         );
 
         # do some checks first

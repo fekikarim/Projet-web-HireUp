@@ -86,7 +86,7 @@ class userCon{
 
     public function addUser($user)
     {
-        $sql = "INSERT INTO $this->tab_name(id, user_name, email, password, role, verified, banned) VALUES (:id, :user_name, :email, :password, :role, :verified, :banned)";
+        $sql = "INSERT INTO $this->tab_name(id, user_name, email, password, role, verified, banned, date) VALUES (:id, :user_name, :email, :password, :role, :verified, :banned, :date)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -98,7 +98,8 @@ class userCon{
                 'password' => $user->get_password(), 
                 'role' => $user->get_role(),
                 'verified' => $user->get_verified(),
-                'banned' => $user->get_banned()
+                'banned' => $user->get_banned(),
+                'date' => $user->get_date()
                 ]
             );
         } catch (Exception $e) {
@@ -179,7 +180,8 @@ class userCon{
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            if ($result['password'] == $password){
+            //if ($result['password'] == $password){
+            if (password_verify($password, $result['password'])){
                 return $result['id'];
                 exit(); // Make sure to stop further execution after redirection
             }
@@ -206,7 +208,8 @@ class userCon{
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            if ($result['password'] == $password){
+            //if ($result['password'] == $password){
+            if (password_verify($password, $result['password'])){
                 return $result['id'];
                 exit(); // Make sure to stop further execution after redirection
             }
@@ -453,6 +456,29 @@ class userCon{
 
             if ($result) {
                 return $result['user_name'];
+            } else {
+                return "error";
+            }
+
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+        
+    }
+
+    public function get_user_email_by_id($id){
+        
+        $db = config::getConnexion();
+
+        $sql = "SELECT * FROM $this->tab_name WHERE id = :id";
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result) {
+                return $result['email'];
             } else {
                 return "error";
             }

@@ -38,6 +38,7 @@ include '../../../Controller/user_con.php';
 
     // Retrieve and sanitize the error message
     $user_name = $userC->get_user_username_by_id($user_id);
+    $user_email = $userC->get_user_email_by_id($user_id);
     
     $mail_sent_res = $userC->send_account_verify_code($user_name);
 
@@ -77,6 +78,10 @@ include '../../../Controller/user_con.php';
                   <img src="../../../assets/images/logos/HireUp_lightMode.png" alt="" width="175" height="73">
                 </a>
                 <p class="text-center">Your Social Campaigns</p>
+                <div class="d-flex align-items-center justify-content-center">
+                    <p class="fs-4 mb-0 fw-bold">Email :</p>
+                    <a class="text-primary fw-bold ms-2" href="#"><?php echo($user_email); ?></a>
+                </div>
                 <form method="post" action="verify-account_action.php">
                   <div class="mb-3">
                     <label for="reset_code_inp" class="form-label">Verification Code</label>
@@ -92,6 +97,9 @@ include '../../../Controller/user_con.php';
                   <div class="d-flex align-items-center justify-content-center">
                     <p class="fs-4 mb-0 fw-bold">Not You?</p>
                     <a class="text-primary fw-bold ms-2" href="./authentication-register.php">Create an account</a>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center">
+                    <a class="text-primary fw-bold ms-2" href="./logout.php">Logout?</a>
                   </div>
                 </form>
               </div>

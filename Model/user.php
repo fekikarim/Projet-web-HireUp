@@ -2,10 +2,10 @@
 
 class User{
 
-    private $id, $user_name, $email, $password, $role, $verified, $banned;
+    private $id, $user_name, $email, $password, $role, $verified, $banned, $date;
 
 
-    public function __construct($id, $user_name, $email, $password, $role, $verified, $banned){
+    public function __construct($id, $user_name, $email, $password, $role, $verified, $banned, $date){
         $this->id = $id;
         $this->user_name = $user_name;
         $this->email = $email;
@@ -13,6 +13,7 @@ class User{
         $this->role = $role;
         $this->verified = $verified;
         $this->banned = $banned;
+        $this->date = $date;
     }
 
     public function set_id($val){
@@ -71,6 +72,14 @@ class User{
 
     public function get_banned(){
         return $this->banned;
+    }
+
+    public function set_date($val){
+        $this->date = $val;
+    }
+
+    public function get_date(){
+        return $this->date;
     }
     
 

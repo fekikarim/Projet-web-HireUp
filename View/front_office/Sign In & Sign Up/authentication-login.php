@@ -31,6 +31,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 if(isset($_SESSION['user id'])) {
+    //MARK: important cz it checks if the user_id is set or not
     $user_id = htmlspecialchars($_SESSION['user id']);
 
     $user_banned = $userC->get_user_banned_by_id($user_id);

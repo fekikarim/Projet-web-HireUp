@@ -95,10 +95,7 @@ else{
         data-sidebar-position="fixed" data-header-position="fixed">
         <!-- Sidebar Start -->
         
-        <?php 
-            $active_page = "user";
-            include('../../../View/back_office/dashboard_side_bar.php') 
-        ?>
+        <?php include('../../../View/back_office/dashboard_side_bar.php') ?>
 
         <!--  Sidebar End -->
         <!--  Main wrapper -->
@@ -180,7 +177,6 @@ else{
                                                         <option value="id">ID</option>
                                                         <option value="user_name">Username</option>
                                                         <option value="email">Email</option>
-                                                        <option value="date">Date</option>
                                                     </select>
                                                 </div>
                                                 <div class="search-input">
@@ -241,9 +237,6 @@ else{
                                                 <h6 class="fw-semibold mb-0">Password</h6>
                                             </th>
                                             <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">Date</h6>
-                                            </th>
-                                            <th class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0">Role</h6>
                                             </th>
                                             <th class="border-bottom-0">
@@ -275,9 +268,6 @@ else{
                                             </td>
                                             <td class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0"><?= $user['password']; ?></h6>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0"><?= $user['date']; ?></h6>
                                             </td>
                                             <td class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0"><?= $user['role']; ?></h6>

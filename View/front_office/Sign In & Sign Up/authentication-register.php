@@ -29,6 +29,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+//MARK: important cz it checks if the user_id is set or not
 if(isset($_SESSION['user id'])) {
     $user_id = htmlspecialchars($_SESSION['user id']);
 

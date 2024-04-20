@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="../../../assets/css/styles.min.css" />
-<script src="../../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <?php
+
+include_once __DIR__ . '/../../Controller/user_con.php';
 
 // Création d'une instance du contrôleur des événements
 $userC = new userCon("user");
