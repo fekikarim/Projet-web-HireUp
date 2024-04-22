@@ -113,7 +113,7 @@ if (session_status() == PHP_SESSION_NONE) {
               <div class="col-lg-4 text-center">
                 <div class="text-center">
                   <div class="header_logo_center">
-                    <a href="index.html" class="logo">
+                    <a href="./../../../index.php" class="logo">
                       <span class="logo_text">Hire</span>
                       <img src="../../../front office assets/images/HireUp_logo.png" alt="" />
                       <span class="logo_subtext">Up</span>
