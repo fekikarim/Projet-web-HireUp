@@ -1,15 +1,9 @@
 <?php
 // Include the controller file
-require_once $_SERVER['DOCUMENT_ROOT'] . '/web/HireUp_try0/Controls/job_management/JobC.php';
+require_once __DIR__ . '/../../../Controls/job_management/JobC.php';
 
 // Create an instance of JobController
 $jobController = new JobController();
-
-// Fetch all jobs
-$jobs = $jobController->getAllJobs();
-
-// Include the controller file
-$jobController2 = new JobController();
 
 // Handle form submissions
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,9 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $location = $_POST["location"];
     $description = $_POST["description"];
     $salary = $_POST["salary"];
+    $category = $_POST["category"];
 
     // Only echo the result if the job update is successful
-    $result = $jobController2->updateJob($job_id, $title, $company, $location, $description, $salary);
+    $result = $jobController->updateJob($job_id, $title, $company, $location, $description, $salary, $category);
 
     if ($result !== false) {
       echo $result;
@@ -33,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } elseif ($_POST["action"] == "delete" && isset($_POST["job_id"])) {
     // Delete job
     $job_id = $_POST["job_id"];
-    $deleted = $jobController2->deleteJob($job_id);
+    $deleted = $jobController->deleteJob($job_id);
     if ($deleted) {
       echo "Job deleted successfully.";
       header("Location: jobs.php");
@@ -43,6 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 }
+
+
+// Fetch all jobs
+$jobs = $jobController->getAllJobsWithCategory();
+$id_category_options = $jobController->generateCategoryOptions();
+
 ?>
 
 
@@ -80,9 +81,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       background-color: rgba(0, 0, 0, 0.5);
       /* Semi-transparent background */
     }
+
     .valid-message {
-        color: #aaa;
+      color: #aaa;
     }
+
     .modal-content {
       background-color: #fefefe;
       margin: auto;
@@ -151,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-lg-4 text-center">
               <div class="text-center">
                 <div class="header_logo_center">
-                  <a href="../index.html" class="logo">
+                  <a href="../index.php" class="logo">
                     <span class="logo_text">Hire</span>
                     <img src="../assets/images/HireUp_logo.png" alt="" />
                     <span class="logo_subtext">Up</span>
@@ -179,36 +182,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <nav class="top-nav">
                   <ul class="nav sf-menu">
                     <li class="active">
-                      <a href="index.php">Homepage</a>
+                      <a href="./index.php">Homepage</a>
                     </li>
 
                     <li>
-                      <a href="../back_office/profiles_management/profile_management.php">Profile</a>
+                      <a href="../../back_office/profiles_management/profile_management.php">Profile</a>
                     </li>
                     <!-- eof pages -->
 
                     <li>
-                      <a href="../back_office/interface/job_management.html">Job</a>
+                      <a href="../../back_office/job_management.php">Job</a>
                     </li>
 
                     <li>
-                      <a href="../back_office/index.html">FeedBack</a>
+                      <a href="../../back_office/index.html">FeedBack</a>
                     </li>
 
                     <!-- blog -->
                     <li>
-                      <a href="./pages/blog-left.html">Blog</a>
+                      <a href="../pages/blog-left.html">Blog</a>
                     </li>
                     <!-- eof blog -->
 
                     <!-- contacts -->
                     <li>
-                      <a href="./pages/contact2.html">Contacts</a>
+                      <a href="">Contacts</a>
                     </li>
                     <!-- eof contacts -->
 
                     <li>
-                      <a href="./pages/about.html">About</a>
+                      <a href="./about.html">About</a>
                     </li>
 
                   </ul>
@@ -349,29 +352,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                   <div class="form-group">
                     <label for="job_title">Job Title</label>
-                    <input type="text" class="form-control" id="job_title" name="job_title" >
+                    <input type="text" class="form-control" id="job_title" name="job_title">
                     <span id="job_title_error" class="text-danger"></span> <!-- Error message placeholder -->
                   </div>
                   <div class="form-group">
                     <label for="company">Company</label>
-                    <input type="text" class="form-control" id="company" name="company" >
+                    <input type="text" class="form-control" id="company" name="company">
                     <span id="job_company_error" class="text-danger"></span> <!-- Error message placeholder -->
                   </div>
                   <div class="form-group">
                     <label for="location">Location</label>
-                    <input type="text" class="form-control" id="location" name="location" >
+                    <input type="text" class="form-control" id="location" name="location">
                     <span id="job_location_error" class="text-danger"></span> <!-- Error message placeholder -->
                   </div>
                   <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" ></textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                     <span id="job_desc_error" class="text-danger"></span> <!-- Error message placeholder -->
                   </div>
                   <div class="form-group">
                     <label for="salary">Salary</label>
-                    <input type="text" class="form-control" id="salary" name="salary" >
+                    <input type="text" class="form-control" id="salary" name="salary">
                     <span id="job_salary_error" class="text-danger"></span> <!-- Error message placeholder -->
                   </div>
+                  <div class="form-group">
+                    <label for="category" class="form-label">Category *</label>
+                    <select class="form-select" id="category" name="category" required>
+                      <option value="" selected disabled>Select Category</option>
+                      <?php echo $id_category_options; ?>
+                    </select>
+                    <span id="job_category_error" class="text-danger"></span>
+                  </div>
+
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
               </div>
@@ -393,7 +405,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form-group">
                   <label for="update_job_title">Job Title:</label>
-                  <input type="text" id="update_job_title" name="job_title" class="form-control" >
+                  <input type="text" id="update_job_title" name="job_title" class="form-control">
                   <span id="update_job_title_error" class="text-danger"></span> <!-- Error message placeholder -->
 
                 </div>
@@ -417,6 +429,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <input type="text" id="update_salary" name="salary" class="form-control">
                   <span id="update_salary_error" class="text-danger"></span> <!-- Error message placeholder -->
                 </div>
+                <div class="form-group">
+                  <label for="update_category" class="form-label">Category *</label>
+                  <select class="form-select" id="update_category" name="category">
+                    <option value="" selected disabled>Select Category</option>
+                    <?php echo $id_category_options; ?>
+                  </select>
+                  <span id="update_category_error" class="text-danger"></span> <!-- Error message placeholder -->
+
+                </div>
+
                 <button type="submit" class="btn btn-primary" id="updateJobBtn">Update Job</button>
                 <button type="button" class="btn btn-secondary cancel-btn" id="cancelUpdateBtn">Cancel</button>
               </form>
@@ -435,7 +457,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="dropdow mr-3" style="position: absolute; top: 10px; right: 10px;">
                       <span class="dropdown" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer; color: #000; font-size: 35px;">...</span>
                       <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                        <button class="dropdown-item edit-btn" data-job-id="<?= $job['id'] ?>" data-job-title="<?= $job['title'] ?>" data-company="<?= $job['company'] ?>" data-location="<?= $job['location'] ?>" data-description="<?= $job['description'] ?>" data-salary="<?= $job['salary'] ?>">Edit</button>
+                        <button class="dropdown-item edit-btn" data-job-id="<?= $job['id'] ?>" data-job-title="<?= $job['title'] ?>" data-company="<?= $job['company'] ?>" data-location="<?= $job['location'] ?>" data-description="<?= $job['description'] ?>" data-salary="<?= $job['salary'] ?>" data-category="<?= $job['category_name'] ?>">Edit</button>
                         <form method="post" style="display:inline;">
                           <input type="hidden" name="action" value="delete">
                           <input type="hidden" name="job_id" value="<?= $job['id'] ?>">
@@ -449,34 +471,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       <header class="entry-header">
                         <h3 class="entry-title">
                           <a href="#link" rel="bookmark">
-                            <?php echo $job['title']; ?>
+                            <?= $job['title']; ?>
                           </a>
                         </h3>
                       </header>
                       <!-- Job description -->
                       <div class="entry-content">
                         <p>
-                          <?php echo $job['description']; ?>
+                          <?= $job['description']; ?>
                         </p>
                       </div>
                       <!-- Job attributes -->
                       <div class="entry-footer">
                         <i class="color-main fa fa-user"></i>
-                        <a href="#"> <?php echo $job['company']; ?> </a>
+                        <a href="#"> <?= $job['company']; ?> </a>
                         <i class="color-main fa fa-calendar"></i>
-                        <a href="#"> <?php echo $job['date_posted']; ?> </a>
+                        <a href="#"> <?= $job['date_posted']; ?> </a>
                         <i class="color-main fa fa-map"></i>
-                        <a href="#"> <?php echo $job['location']; ?> </a>
+                        <a href="#"> <?= $job['location']; ?> </a>
                         <i class="color-main fa fa-money"></i>
-                        <a href="#"> <?php echo $job['salary']; ?> </a>
+                        <a href="#"> <?= $job['salary']; ?> </a>
+                        <i class="color-main fa fa-tag"></i>
+                        <a href="#"> <?= $job['category_name']; ?> </a> <!-- Display category here -->
                       </div>
                     </div>
                     <!-- .item-content -->
                   </article>
                 <?php endforeach; ?>
-
-
-
 
 
 
@@ -761,348 +782,366 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script src="../assets/js/main.js"></script>
   <script src="../assets/js/scripts.js"></script>
 
-    <!-- add JS -->
+  <!-- add JS -->
 
-    <script>
-        document.getElementById("createJobForm").addEventListener("submit", function(event) {
-            // Reset previous error messages
-            document.getElementById("job_title_error").textContent = ""; // Reset error message for job title
-            document.getElementById("job_company_error").textContent = ""; // Reset error message for company
-            document.getElementById("job_location_error").textContent = ""; // Reset error message for location
-            document.getElementById("job_desc_error").textContent = ""; // Reset error message for description
-            document.getElementById("job_salary_error").textContent = ""; // Reset error message for salary
+  <script>
+    document.getElementById("createJobForm").addEventListener("submit", function(event) {
+      // Reset previous error messages
+      document.getElementById("job_title_error").textContent = ""; // Reset error message for job title
+      document.getElementById("job_company_error").textContent = ""; // Reset error message for company
+      document.getElementById("job_location_error").textContent = ""; // Reset error message for location
+      document.getElementById("job_desc_error").textContent = ""; // Reset error message for description
+      document.getElementById("job_salary_error").textContent = ""; // Reset error message for salary
 
-            // Get input values
-            var jobTitle = document.getElementById("job_title").value.trim();
-            var company = document.getElementById("company").value.trim();
-            var location = document.getElementById("location").value.trim();
-            var description = document.getElementById("description").value.trim();
-            var salary = document.getElementById("salary").value.trim();
+      // Get input values
+      var jobTitle = document.getElementById("job_title").value.trim();
+      var company = document.getElementById("company").value.trim();
+      var location = document.getElementById("location").value.trim();
+      var description = document.getElementById("description").value.trim();
+      var salary = document.getElementById("salary").value.trim();
 
-            // Variable to store the common error message
-            var errorMessage = "";
-
-
-
-            // Validate job title (characters only)
-            if (!/^[a-zA-Z\s]+$/.test(jobTitle)) {
-                errorMessage = "Job title must contain only characters."; // Set common error message
-                displayError("job_title_error", errorMessage, true); // Display error message
-            }
-
-            // Check if salary is not empty and contains only numbers
-            if (!/^\d+(\.\d+)?$/.test(salary)) {
-                errorMessage = "Salary must be a number."; // Set common error message
-                displayError("job_salary_error", errorMessage, true); // Display error message
-            }
-
-            // Check if any input field is empty
-            if (jobId === "") {
-                errorMessage = "Job ID is required."; // Set common error message
-                displayError("job_id_error", errorMessage, true); // Display error message
-            }
-
-            // Check if any input field is empty
-            if (jobTitle === "") {
-                errorMessage = "Job title is required."; // Set common error message
-                displayError("job_title_error", errorMessage, true); // Display error message
-            }
-
-            // Check if any input field is empty
-            if (company === "") {
-                errorMessage = "Company is required."; // Set common error message
-                displayError("job_company_error", errorMessage, true); // Display error message
-            }
-
-            // Check if any input field is empty
-            if (location === "") {
-                errorMessage = "Location is required."; // Set common error message
-                displayError("job_location_error", errorMessage, true); // Display error message
-            }
-
-            // Check if any input field is empty
-            if (description === "") {
-                errorMessage = "Description is required."; // Set common error message
-                displayError("job_desc_error", errorMessage, true); // Display error message
-            }
-
-            // Check if any input field is empty
-            if (salary === "") {
-                errorMessage = "Salary is required."; // Set common error message
-                displayError("job_salary_error", errorMessage, true); // Display error message
-            }
-
-            // Prevent form submission if there's an error message
-            if (errorMessage !== "") {
-                event.preventDefault();
-            }
-        });
+      // Variable to store the common error message
+      var errorMessage = "";
 
 
 
-        // Listen for input event on job title field
-        document.getElementById("job_title").addEventListener("input", function(event) {
-            var jobTitle = this.value.trim(); // Get value of job title field
-            
-            // Validate job title format (characters only)
-            if (jobTitle === "") {
-                displayError("job_title_error", "Title is required.", true); // Display error message for empty job title
-            } else if (/^[a-zA-Z\s]+$/.test(jobTitle)) {
-                displayError("job_title_error", "Valid Job Title", false); // Display valid message for job title
-            } else {
-                displayError("job_title_error", "Job title must contain only characters.", true); // Display error message for invalid job title
-            }
-        });
+      // Validate job title (characters only)
+      if (!/^[a-zA-Z\s]+$/.test(jobTitle)) {
+        errorMessage = "Job title must contain only characters."; // Set common error message
+        displayError("job_title_error", errorMessage, true); // Display error message
+      }
 
-        // Listen for input event on job salary field
-        document.getElementById("salary").addEventListener("input", function(event) {
-            var jobSalary = this.value.trim(); // Get value of job salary field
-            
-            // Validate if salary is empty
-            if (jobSalary === "") {
-                displayError("job_salary_error", "Salary is required.", true); // Display error message for empty salary
-            } else if (/^\d+(\.\d+)?$/.test(jobSalary)) {
-                displayError("job_salary_error", "Valid Job Salary", false); // Display valid message for salary
-            } else {
-                displayError("job_salary_error", "Salary must be a number.", true); // Display error message for invalid salary format
-            }
-        });
+      // Check if salary is not empty and contains only numbers
+      if (!/^\d+(\.\d+)?$/.test(salary)) {
+        errorMessage = "Salary must be a number."; // Set common error message
+        displayError("job_salary_error", errorMessage, true); // Display error message
+      }
 
-        // Listen for input event on company field
-        document.getElementById("company").addEventListener("input", function(event) {
-            var company = this.value.trim(); // Get value of company field
-            
-            // Validate if company is empty
-            if (company === "") {
-                displayError("job_company_error", "Company is required.", true); // Display error message for empty company
-            } else {
-                displayError("job_company_error", "Valid company", false); // Display valid message for company
-            }
-        });
+      // Check if any input field is empty
+      if (jobId === "") {
+        errorMessage = "Job ID is required."; // Set common error message
+        displayError("job_id_error", errorMessage, true); // Display error message
+      }
 
-        // Listen for input event on location field
-        document.getElementById("location").addEventListener("input", function(event) {
-            var location = this.value.trim(); // Get value of location field
-            
-            // Validate if location is empty
-            if (location === "") {
-                displayError("job_location_error", "Location is required.", true); // Display error message for empty location
-            } else {
-                displayError("job_location_error", "Valid location", false); // Display valid message for location
-            }
-        });
+      // Check if any input field is empty
+      if (jobTitle === "") {
+        errorMessage = "Job title is required."; // Set common error message
+        displayError("job_title_error", errorMessage, true); // Display error message
+      }
 
-        // Listen for input event on description field
-        document.getElementById("description").addEventListener("input", function(event) {
-            var description = this.value.trim(); // Get value of description field
-            
-            // Validate if description is empty
-            if (description === "") {
-                displayError("job_desc_error", "Description is required.", true); // Display error message for empty description
-            } else {
-                displayError("job_desc_error", "Valid description", false); // Display valid message for description
-            }
-        });
+      // Check if any input field is empty
+      if (company === "") {
+        errorMessage = "Company is required."; // Set common error message
+        displayError("job_company_error", errorMessage, true); // Display error message
+      }
 
-        // Function to display error message
-        function displayError(elementId, errorMessage, isError) {
-            var errorElement = document.getElementById(elementId);
-            errorElement.textContent = errorMessage;
-            errorElement.classList.toggle("text-danger", isError);
-            errorElement.classList.toggle("text-success", !isError);
-        }
+      // Check if any input field is empty
+      if (location === "") {
+        errorMessage = "Location is required."; // Set common error message
+        displayError("job_location_error", errorMessage, true); // Display error message
+      }
 
+      // Check if any input field is empty
+      if (description === "") {
+        errorMessage = "Description is required."; // Set common error message
+        displayError("job_desc_error", errorMessage, true); // Display error message
+      }
 
+      // Check if any input field is empty
+      if (salary === "") {
+        errorMessage = "Salary is required."; // Set common error message
+        displayError("job_salary_error", errorMessage, true); // Display error message
+      }
 
-        document.addEventListener("DOMContentLoaded", function() {
-        // Function to check if all input fields are populated
-        function checkInputFields() {
-            var inputs = document.querySelectorAll("#createJobForm input");
-            var allPopulated = true;
-            inputs.forEach(function(input) {
-                if (input.value.trim() === "") {
-                    allPopulated = false;
-                }
-            });
-            return allPopulated;
-        }
-
-        // Function to enable/disable submit button based on input fields
-        function toggleSubmitButton() {
-            var submitButton = document.querySelector("#createJobForm button[type='submit']");
-            submitButton.disabled = !checkInputFields();
-        }
-
-        // Listen for input event on each input field
-        var inputs = document.querySelectorAll("#createJobForm input");
-        inputs.forEach(function(input) {
-            input.addEventListener("input", function() {
-                toggleSubmitButton();
-            });
-        });
-
-        // Initial call to toggleSubmitButton to set initial state
-        toggleSubmitButton();
+      // Prevent form submission if there's an error message
+      if (errorMessage !== "") {
+        event.preventDefault();
+      }
     });
-    </script>
 
 
 
-    <!-- update JS -->
+    // Listen for input event on job title field
+    document.getElementById("job_title").addEventListener("input", function(event) {
+      var jobTitle = this.value.trim(); // Get value of job title field
 
-    <script>
-        document.getElementById("updateJobForm").addEventListener("submit", function(event) {
-            // Reset previous error messages
-            
-            document.getElementById("update_job_title_error").textContent = ""; // Reset error message for job title
-            document.getElementById("update_company_error").textContent = ""; // Reset error message for company
-            document.getElementById("update_location_error").textContent = ""; // Reset error message for location
-            document.getElementById("update_description_error").textContent = ""; // Reset error message for description
-            document.getElementById("update_salary_error").textContent = ""; // Reset error message for salary
-            // Reset other error messages for additional fields
+      // Validate job title format (characters only)
+      if (jobTitle === "") {
+        displayError("job_title_error", "Title is required.", true); // Display error message for empty job title
+      } else if (/^[a-zA-Z\s]+$/.test(jobTitle)) {
+        displayError("job_title_error", "Valid Job Title", false); // Display valid message for job title
+      } else {
+        displayError("job_title_error", "Job title must contain only characters.", true); // Display error message for invalid job title
+      }
+    });
 
-            // Get input values
-            
-            var jobTitle = document.getElementById("update_job_title").value.trim();
-            var company = document.getElementById("update_company").value.trim();
-            var location = document.getElementById("update_location").value.trim();
-            var description = document.getElementById("update_description").value.trim();
-            var salary = document.getElementById("update_salary").value.trim();
-            // Get values for other input fields
+    // Listen for input event on job salary field
+    document.getElementById("salary").addEventListener("input", function(event) {
+      var jobSalary = this.value.trim(); // Get value of job salary field
 
-            // Variable to store the common error message
-            var errorMessage = "";
-        
-        
-            
-            // Validate job title (characters only)
-            if (!/^[a-zA-Z\s]+$/.test(jobTitle)) {
-                errorMessage = "Job title must contain only characters."; // Set common error message
-                displayError("update_job_title_error", errorMessage, true); // Display error message
-            }
-            // Check if salary is not empty and contains only numbers
-            if (!/^\d+(\.\d+)?$/.test(salary)) {
-                errorMessage = "Salary must be a number."; // Set common error message
-                displayError("update_salary_error", errorMessage, true); // Display error message
-            }
-            // Check if any input field is empty
-            if (jobTitle === "") {
-                errorMessage = "Job title is required."; // Set common error message
-                displayError("update_job_title_error", errorMessage, true); // Display error message
-            }
+      // Validate if salary is empty
+      if (jobSalary === "") {
+        displayError("job_salary_error", "Salary is required.", true); // Display error message for empty salary
+      } else if (/^\d+(\.\d+)?$/.test(jobSalary)) {
+        displayError("job_salary_error", "Valid Job Salary", false); // Display valid message for salary
+      } else {
+        displayError("job_salary_error", "Salary must be a number.", true); // Display error message for invalid salary format
+      }
+    });
 
-            // Check if any input field is empty
-            if (company === "") {
-                errorMessage = "Company is required."; // Set common error message
-                displayError("update_company_error", errorMessage, true); // Display error message
-            }
+    // Listen for input event on company field
+    document.getElementById("company").addEventListener("input", function(event) {
+      var company = this.value.trim(); // Get value of company field
 
-            // Check if any input field is empty
-            if (location === "") {
-                errorMessage = "Location is required."; // Set common error message
-                displayError("update_location_error", errorMessage, true); // Display error message
-            }
+      // Validate if company is empty
+      if (company === "") {
+        displayError("job_company_error", "Company is required.", true); // Display error message for empty company
+      } else {
+        displayError("job_company_error", "Valid company", false); // Display valid message for company
+      }
+    });
 
-            // Check if any input field is empty
-            if (description === "") {
-                errorMessage = "Description is required."; // Set common error message
-                displayError("update_description_error", errorMessage, true); // Display error message
-            }
-            // Check if any input field is empty
-            if (salary === "") {
-                errorMessage = "Salary is required."; // Set common error message
-                displayError("update_salary_error", errorMessage, true); // Display error message
-            }
-            
-            // Display error message for other fields
+    // Listen for input event on location field
+    document.getElementById("location").addEventListener("input", function(event) {
+      var location = this.value.trim(); // Get value of location field
 
-            // Prevent form submission if there's an error message
-            if (errorMessage !== "") {
-                event.preventDefault();
-            }
+      // Validate if location is empty
+      if (location === "") {
+        displayError("job_location_error", "Location is required.", true); // Display error message for empty location
+      } else {
+        displayError("job_location_error", "Valid location", false); // Display valid message for location
+      }
+    });
+
+    // Listen for input event on description field
+    document.getElementById("description").addEventListener("input", function(event) {
+      var description = this.value.trim(); // Get value of description field
+
+      // Validate if description is empty
+      if (description === "") {
+        displayError("job_desc_error", "Description is required.", true); // Display error message for empty description
+      } else {
+        displayError("job_desc_error", "Valid description", false); // Display valid message for description
+      }
+    });
+
+    // Function to display error message
+    function displayError(elementId, errorMessage, isError) {
+      var errorElement = document.getElementById(elementId);
+      errorElement.textContent = errorMessage;
+      errorElement.classList.toggle("text-danger", isError);
+      errorElement.classList.toggle("text-success", !isError);
+    }
+
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+      // Function to check if all input fields are populated
+      function checkInputFields() {
+        var inputs = document.querySelectorAll("#createJobForm input");
+        var allPopulated = true;
+        inputs.forEach(function(input) {
+          if (input.value.trim() === "") {
+            allPopulated = false;
+          }
         });
+        return allPopulated;
+      }
 
-        
+      // Function to enable/disable submit button based on input fields
+      function toggleSubmitButton() {
+        var submitButton = document.querySelector("#createJobForm button[type='submit']");
+        submitButton.disabled = !checkInputFields();
+      }
 
-            // Listen for input event on job title field
-            document.getElementById("update_job_title").addEventListener("input", function(event) {
-                var jobTitle = this.value.trim(); // Get value of job title field
-                var jobTitleError = document.getElementById("update_job_title_error"); // Get error message element
-                
-                // Validate job title format (characters only)
-                if (jobTitle === "") {
-                    displayError("update_job_title_error", "Title is required.", true); // Display error message for empty job title
-                } else if (/^[a-zA-Z\s]+$/.test(jobTitle)) {
-                    displayError("update_job_title_error", "Valid Job Title", false); // Display valid message for job title
-                } else {
-                    displayError("update_job_title_error", "Job title must contain only characters.", true); // Display error message for invalid job title
-                }
-            });
+      // Listen for input event on each input field
+      var inputs = document.querySelectorAll("#createJobForm input");
+      inputs.forEach(function(input) {
+        input.addEventListener("input", function() {
+          toggleSubmitButton();
+        });
+      });
 
-            // Listen for input event on job salary field
-            document.getElementById("update_salary").addEventListener("input", function(event) {
-                var jobSalary = this.value.trim(); // Get value of job salary field
-                var jobSalaryError = document.getElementById("update_salary_error"); // Get error message element
-                
-                // Validate if salary is empty
-                if (jobSalary === "") {
-                    displayError("update_salary_error", "Salary is required.", true); // Display error message for empty salary
-                } else if (/^\d+(\.\d+)?$/.test(jobSalary)) {
-                    displayError("update_salary_error", "Valid Job Salary", false); // Display valid message for salary
-                } else {
-                    displayError("update_salary_error", "Salary must be a number.", true); // Display error message for invalid salary format
-                }
-            });
-
-            // Listen for input event on company field
-            document.getElementById("update_company").addEventListener("input", function(event) {
-                var company = this.value.trim(); // Get value of company field
-                var companyError = document.getElementById("update_company_error"); // Get error message element
-                
-                // Validate if company is empty
-                if (company === "") {
-                    displayError("update_company_error", "Company is required.", true); // Display error message for empty company
-                } else {
-                    displayError("update_company_error", "Valid company", false); // Display valid message for company
-                }
-            });
-
-            // Listen for input event on location field
-            document.getElementById("update_location").addEventListener("input", function(event) {
-                var location = this.value.trim(); // Get value of location field
-                var locationError = document.getElementById("update_location_error"); // Get error message element
-                
-                // Validate if location is empty
-                if (location === "") {
-                    displayError("update_location_error", "Location is required.", true); // Display error message for empty location
-                } else {
-                    displayError("update_location_error", "Valid location", false); // Display valid message for location
-                }
-            });
-
-            // Listen for input event on description field
-            document.getElementById("update_description").addEventListener("input", function(event) {
-                var description = this.value.trim(); // Get value of description field
-                var descriptionError = document.getElementById("update_description_error"); // Get error message element
-                
-                // Validate if description is empty
-                if (description === "") {
-                    displayError("update_description_error", "Description is required.", true); // Display error message for empty description
-                } else {
-                    displayError("update_description_error", "Valid description", false); // Display valid message for description
-                }
-            });
+      // Initial call to toggleSubmitButton to set initial state
+      toggleSubmitButton();
+    });
+  </script>
 
 
-            // Function to display error message
-            function displayError(elementId, errorMessage, isError) {
-                var errorElement = document.getElementById(elementId);
-                errorElement.textContent = errorMessage;
-                errorElement.classList.toggle("text-danger", isError);
-                errorElement.classList.toggle("text-success", !isError);
-            }
 
-    </script>
+  <!-- update JS -->
+
+  <script>
+    document.getElementById("updateJobForm").addEventListener("submit", function(event) {
+      // Reset previous error messages
+
+      document.getElementById("update_job_title_error").textContent = ""; // Reset error message for job title
+      document.getElementById("update_company_error").textContent = ""; // Reset error message for company
+      document.getElementById("update_location_error").textContent = ""; // Reset error message for location
+      document.getElementById("update_description_error").textContent = ""; // Reset error message for description
+      document.getElementById("update_salary_error").textContent = ""; // Reset error message for salary
+      document.getElementById("update_category_error").textContent = "";
+      // Reset other error messages for additional fields
+
+      // Get input values
+
+      var jobTitle = document.getElementById("update_job_title").value.trim();
+      var company = document.getElementById("update_company").value.trim();
+      var location = document.getElementById("update_location").value.trim();
+      var description = document.getElementById("update_description").value.trim();
+      var salary = document.getElementById("update_salary").value.trim();
+      var category = document.getElementById("update_category").value.trim();
+      // Get values for other input fields
+
+      // Variable to store the common error message
+      var errorMessage = "";
+
+
+
+      // Validate job title (characters only)
+      if (!/^[a-zA-Z\s]+$/.test(jobTitle)) {
+        errorMessage = "Job title must contain only characters."; // Set common error message
+        displayError("update_job_title_error", errorMessage, true); // Display error message
+      }
+      // Check if salary is not empty and contains only numbers
+      if (!/^\d+(\.\d+)?$/.test(salary)) {
+        errorMessage = "Salary must be a number."; // Set common error message
+        displayError("update_salary_error", errorMessage, true); // Display error message
+      }
+      // Check if any input field is empty
+      if (jobTitle === "") {
+        errorMessage = "Job title is required."; // Set common error message
+        displayError("update_job_title_error", errorMessage, true); // Display error message
+      }
+
+      // Check if any input field is empty
+      if (company === "") {
+        errorMessage = "Company is required."; // Set common error message
+        displayError("update_company_error", errorMessage, true); // Display error message
+      }
+
+      // Check if any input field is empty
+      if (location === "") {
+        errorMessage = "Location is required."; // Set common error message
+        displayError("update_location_error", errorMessage, true); // Display error message
+      }
+
+      // Check if any input field is empty
+      if (description === "") {
+        errorMessage = "Description is required."; // Set common error message
+        displayError("update_description_error", errorMessage, true); // Display error message
+      }
+      // Check if any input field is empty
+      if (salary === "") {
+        errorMessage = "Salary is required."; // Set common error message
+        displayError("update_salary_error", errorMessage, true); // Display error message
+      }
+      if (category === "") {
+        errorMessage = "Category is required."; // Set common error message
+        displayError("update_category_error", errorMessage, true); // Display error message
+      }
+
+      // Display error message for other fields
+
+      // Prevent form submission if there's an error message
+      if (errorMessage !== "") {
+        event.preventDefault();
+      }
+    });
+
+
+
+    // Listen for input event on job title field
+    document.getElementById("update_job_title").addEventListener("input", function(event) {
+      var jobTitle = this.value.trim(); // Get value of job title field
+      var jobTitleError = document.getElementById("update_job_title_error"); // Get error message element
+
+      // Validate job title format (characters only)
+      if (jobTitle === "") {
+        displayError("update_job_title_error", "Title is required.", true); // Display error message for empty job title
+      } else if (/^[a-zA-Z\s]+$/.test(jobTitle)) {
+        displayError("update_job_title_error", "Valid Job Title", false); // Display valid message for job title
+      } else {
+        displayError("update_job_title_error", "Job title must contain only characters.", true); // Display error message for invalid job title
+      }
+    });
+
+    // Listen for input event on company field
+    document.getElementById("update_company").addEventListener("input", function(event) {
+      var company = this.value.trim(); // Get value of company field
+      var companyError = document.getElementById("update_company_error"); // Get error message element
+
+      // Validate if company is empty
+      if (company === "") {
+        displayError("update_company_error", "Company is required.", true); // Display error message for empty company
+      } else {
+        displayError("update_company_error", "Valid company", false); // Display valid message for company
+      }
+    });
+
+    // Listen for input event on job salary field
+    document.getElementById("update_salary").addEventListener("input", function(event) {
+      var jobSalary = this.value.trim(); // Get value of job salary field
+      var jobSalaryError = document.getElementById("update_salary_error"); // Get error message element
+
+      // Validate if salary is empty
+      if (jobSalary === "") {
+        displayError("update_salary_error", "Salary is required.", true); // Display error message for empty salary
+      } else if (/^\d+(\.\d+)?$/.test(jobSalary)) {
+        displayError("update_salary_error", "Valid Job Salary", false); // Display valid message for salary
+      } else {
+        displayError("update_salary_error", "Salary must be a number.", true); // Display error message for invalid salary format
+      }
+    });
+
+    // Listen for input event on company field
+    document.getElementById("update_company").addEventListener("input", function(event) {
+      var company = this.value.trim(); // Get value of company field
+      var companyError = document.getElementById("update_company_error"); // Get error message element
+
+      // Validate if company is empty
+      if (company === "") {
+        displayError("update_company_error", "Company is required.", true); // Display error message for empty company
+      } else {
+        displayError("update_company_error", "Valid company", false); // Display valid message for company
+      }
+    });
+
+    // Listen for input event on location field
+    document.getElementById("update_location").addEventListener("input", function(event) {
+      var location = this.value.trim(); // Get value of location field
+      var locationError = document.getElementById("update_location_error"); // Get error message element
+
+      // Validate if location is empty
+      if (location === "") {
+        displayError("update_location_error", "Location is required.", true); // Display error message for empty location
+      } else {
+        displayError("update_location_error", "Valid location", false); // Display valid message for location
+      }
+    });
+
+    // Listen for input event on description field
+    document.getElementById("update_description").addEventListener("input", function(event) {
+      var description = this.value.trim(); // Get value of description field
+      var descriptionError = document.getElementById("update_description_error"); // Get error message element
+
+      // Validate if description is empty
+      if (description === "") {
+        displayError("update_description_error", "Description is required.", true); // Display error message for empty description
+      } else {
+        displayError("update_description_error", "Valid description", false); // Display valid message for description
+      }
+    });
+
+
+    // Function to display error message
+    function displayError(elementId, errorMessage, isError) {
+      var errorElement = document.getElementById(elementId);
+      errorElement.textContent = errorMessage;
+      errorElement.classList.toggle("text-danger", isError);
+      errorElement.classList.toggle("text-success", !isError);
+    }
+  </script>
 
 
 

@@ -1,6 +1,6 @@
 <?php
 // Include the JobController
-require_once '../../Controls/job_management/JobC.php';
+require_once __DIR__ . '../../Controls/job_management/JobC.php';
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_job_id"])) {
@@ -11,12 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_job_id"])) {
     $location = $_POST["update_location"];
     $description = $_POST["update_description"];
     $salary = $_POST["update_salary"];
-
+    $category = $_POST["update_category"];
     // Create an instance of JobController
     $jobController = new JobController();
 
     // Update the job information
-    $result = $jobController->updateJob($jobId, $title, $company, $location, $description, $salary);
+    $result = $jobController->updateJob($jobId, $title, $company, $location, $description, $salary,$category);
 
     // Check if the update was successful
     if ($result) {

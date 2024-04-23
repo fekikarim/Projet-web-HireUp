@@ -464,7 +464,7 @@
 
                       <!-- gallery -->
                       <li>
-                        <a href="#">Gallery</a>
+                        <a href="galerie.php">Gallery</a>
                         <ul>
                           <li>
                             <a href="#">Gallery Regular</a>

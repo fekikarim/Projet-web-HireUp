@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/web/HireUp_try0/Controls/job_management/JobC.php';
+require_once __DIR__ . '/../../../Controls/job_management/JobC.php';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -11,12 +11,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $location = $_POST["location"];
     $description = $_POST["description"];
     $salary = $_POST["salary"];
+    $category = $_POST["category"];
 
     // Include the controller file
     $jobController = new JobController();
     $job_id=$jobController->generateJobId(7);
     // Call the method to add the profile with profile photo and cover data
-    $result = $jobController->createJob($job_id,$title, $company, $location, $description, $salary);
+    $result = $jobController->createJob($job_id,$title, $company, $location, $description, $salary, $category);
 
     if ($result !== false) {
         echo $result;
