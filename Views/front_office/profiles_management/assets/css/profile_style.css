@@ -1,0 +1,230 @@
+.profile-cover {
+  width: 100%;
+  height: 300px;
+  /* Set the desired height */
+  overflow: hidden;  
+}
+
+.profile-cover img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  /* Ensure the image covers the entire container */
+}
+
+/* Style for the modal */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+}
+
+.modal-body .buttons button > i,
+.modal-footer button > i {
+  color: #40a2d8;
+  border: 0;
+}
+
+.modal-body button:hover,
+.modal-footer #clock:hover {
+  background-color: rgba(216, 217, 218, 0.75);
+  border: 0;
+}
+
+.modal-footer #post {
+  background-color: #40a2d8;
+  color: #000;
+  border: none;
+}
+
+.modal-footer #post:hover {
+  background-color: #aad6ee;
+  color: #000;
+  border: none;
+}
+
+/* Close button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 34px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#postDescription {
+  width: 100%;
+  height: 200px; /* Adjust height as needed */
+  padding: 10px;
+  border: 1px solid #40a2d8;
+  border-radius: 5px;
+  resize: none; /* Prevent resizing */
+  font-size: 16px; /* Adjust font size */
+}
+
+#postDescription::placeholder {
+  color: #999; /* Placeholder text color */
+}
+
+/* Style for disabled post button */
+#post:disabled {
+  background-color: #61677a;
+  color: #f5f5f5;
+}
+
+/* Transparent buttons with gray hover effect */
+#btn_outline_custom,
+.show-all-button,
+.edit-details-button {
+  background-color: transparent;
+  color: #40a2d8;
+  border: transparent;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+#btn_outline_custom:hover,
+.show-all-button:hover,
+.edit-details-button:hover {
+  background-color: rgba(216, 217, 218, 0.75);
+  color: #0b60b0;
+}
+
+.button-like-input {
+  border: 1px solid #ced4da; /* Button-like border */
+  padding: 0.375rem 0.75rem; /* Button-like padding */
+  background-color: #ffffff; /* Button-like background color */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.button-like-input:hover {
+  background-color: #f8f9fa; /* Change background color on hover */
+}
+
+/* Style for friend item */
+.friend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+/* Style for friend profile picture */
+.friend-profile-picture {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Style for friend name */
+.friend-name {
+  margin: 0;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Style for profile link */
+.profile-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.profile-post-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.new-profile-pic {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 7px solid #40a2d8;
+}
+
+.profile-img-list {
+  text-align: center;
+}
+
+/* Apply default styles */
+.like-button,
+.comment-button,
+.share-button {
+  background-color: transparent;
+  border: none;
+  transition: background-color 0.3s ease;
+  /* Match anchor tag styles */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Define the animation */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation */
+.like-button:hover {
+  animation: bounce 0.4s ease;
+}
+
+.like-button:active {
+  background-color: #40a2d8;
+  color: #f5f5f5;
+  border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+/*##############################################"*/

@@ -108,7 +108,6 @@ const countries = [
     { name: "Iraq", code: "IQ", phone: 964 },
     { name: "Ireland", code: "IE", phone: 353 },
     { name: "Isle of Man", code: "IM", phone: 44 },
-    { name: "Israel", code: "IL", phone: 972 },
     { name: "Italy", code: "IT", phone: 39 },
     { name: "Jamaica", code: "JM", phone: 1876 },
     { name: "Japan", code: "JP", phone: 81 },

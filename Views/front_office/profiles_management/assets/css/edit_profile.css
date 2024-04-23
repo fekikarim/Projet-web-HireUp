@@ -1,0 +1,153 @@
+:root,
+[data-bs-theme="light"] {
+  --src-logo: url("../img/logos/HireUp_lightMode.png");
+}
+
+[data-bs-theme="dark"] {
+  --src-logo: url("../img/logos/HireUp_darkMode.png");
+}
+
+body {
+  margin-top: 20px;
+  background-color: #f2f6fc;
+  color: #69707a;
+}
+
+
+.img-account-profile {
+  height: 10rem;
+}
+.rounded-circle {
+  border-radius: 50% !important;
+}
+.card {
+  box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+}
+.card .card-header {
+  font-weight: 500;
+}
+.card-header:first-child {
+  border-radius: 0.35rem 0.35rem 0 0;
+}
+.card-header {
+  padding: 1rem 1.35rem;
+  margin-bottom: 0;
+  background-color: rgba(33, 40, 50, 0.03);
+  border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+}
+.form-control,
+.dataTable-input {
+  display: block;
+  width: 100%;
+  padding: 0.875rem 1.125rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  color: #69707a;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #c5ccd6;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.35rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.nav-borders .nav-link.active {
+  color: #0061f2;
+  border-bottom-color: #0061f2;
+}
+.nav-borders .nav-link {
+  color: #69707a;
+  border-bottom-width: 0.125rem;
+  border-bottom-style: solid;
+  border-bottom-color: transparent;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+
+
+.profile-pic-container,
+.hidden-profile-pic-container {
+  width: 200px; /* Adjust width as needed */
+  height: 200px; /* Adjust height as needed */
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto; /* Center the container */
+}
+
+
+.profile-pic-container img,
+.hidden-profile-pic-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.logo-img {
+  width: 115px;
+  height: 52px;
+  margin: 0 auto;
+  /* Center the image horizontally */
+  display: block;
+  /* Ensure the link occupies full width */
+  padding-top: 2%;
+  content: var(--src-logo);
+}
+
+
+/*########################################*/
+
+
+/* Alert Popup Styles */
+.alert-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000;
+  display: none;
+}
+
+.alert-content {
+  display: flex;
+  align-items: center;
+}
+
+.alert-icon {
+  color: #28a745;
+  font-size: 24px;
+  margin-right: 15px;
+}
+
+.alert-message {
+  font-size: 18px;
+  color: #333;
+}
+
+.close-btn {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.close-btn:hover {
+  background-color: #218838;
+}

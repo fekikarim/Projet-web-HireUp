@@ -1,0 +1,98 @@
+:root,
+[data-bs-theme="light"] {
+  --bs-primary: #40A2D8;
+  --bs-secondary: #f5f5f5;
+  --bs-linear: #f0f0f0;
+  --bs-border: #ebf1f6;
+  --bs-colo: #69707a;
+  --bs-form: #c5ccd6;
+  --bs-body-bg: #f2f6fc;
+  --bs-success-text: #0fb294;
+  --bs-info-text: #325d99;
+  --bs-warning-text: #996813;
+  --bs-danger-text: #c86e56;
+  --text-color: #000;
+  --src-logo: url("../img/logos/HireUp_lightMode.png");
+}
+
+[data-bs-theme="dark"] {
+  --bs-primary: #40A2D8;
+  --bs-secondary: #000000;
+  --bs-linear: #0f0f0f;
+  --bs-border: #1e1e1e;
+  --bs-colo: #b8c9df;
+  --bs-form: #434548;
+  --bs-body-bg: #212529;
+  --bs-success-text: #0fb294;
+  --bs-info-text: #325d99;
+  --bs-warning-text: #996813;
+  --bs-danger-text: #c86e56;
+  --text-color: #f5f5f5;
+  --src-logo: url("../img/logos/HireUp_darkMode.png");
+}
+
+body{margin-top:20px;
+    background-color:var(--bs-body-bg);
+    color: var(--bs-colo);
+    }
+    .img-account-profile {
+        height: 10rem;
+    }
+    .rounded-circle {
+        border-radius: 50% !important;
+    }
+    .card {
+        box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+    }
+    .card .card-header {
+        font-weight: 500;
+    }
+    .card-header:first-child {
+        border-radius: 0.35rem 0.35rem 0 0;
+    }
+    .card-header {
+        padding: 1rem 1.35rem;
+        margin-bottom: 0;
+        background-color: rgba(33, 40, 50, 0.03);
+        border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+    }
+    .form-control, .dataTable-input {
+        display: block;
+        width: 100%;
+        padding: 0.875rem 1.125rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1;
+        color: var(--bs-colo);
+        background-color: var(--bs-secondary);
+        background-clip: padding-box;
+        border: 1px solid var(--bs-form);
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.35rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    
+    .nav-borders .nav-link.active {
+        color: var(--bs-primary);
+        border-bottom-color: var(--bs-primary);
+    }
+    .nav-borders .nav-link {
+        color: var(--bs-colo);
+        border-bottom-width: 0.125rem;
+        border-bottom-style: solid;
+        border-bottom-color: transparent;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    
+    .btn-danger-soft {
+        color: var(--text-color);
+        background-color: var(--bs-body-bg);
+        border-color: var(--bs-body-bg);
+    }

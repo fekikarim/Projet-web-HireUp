@@ -21,7 +21,7 @@ $profiles = $profileController->listProfile();
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HireUp Dashboard</title>
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/HireUp_icon.ico" />
-  <link rel="stylesheet" id="styleshee  t" href="../assets/css/styles.min.css" />
+  <link rel="stylesheet" id="stylesheet" href="../assets/css/styles.min.css" />
 
   <link rel="stylesheet" href="../assets/css/phone.css">
 
@@ -162,26 +162,6 @@ $profiles = $profileController->listProfile();
                 <span class="hide-menu">Register</span>
               </a>
             </li>
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">EXTRA</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="../interface/job_management.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-mood-happy"></i>
-                </span>
-                <span class="hide-menu">Icons</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="../interface/job_management.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-aperture"></i>
-                </span>
-                <span class="hide-menu">Sample Page</span>
-              </a>
-            </li>
           </ul>
         </nav>
         <!-- End Sidebar navigation -->
@@ -259,7 +239,11 @@ $profiles = $profileController->listProfile();
               <!-- Button with an icon and a form below it -->
               <button id="toggleFormButton" class="btn btn-primary mb-3" style="font-size: large;">
                 <i class="ti ti-user-plus me-2"></i>Add Profile
-              </button><br>
+              </button>
+              <a class="btn btn-primary mb-3 ms-3" href="./subscription/subscriptionMg.php?profile_id=<?php echo $test ?>" style="font-size: large;">
+                <i class="ti ti-user-check me-2"></i>Subscriptions Management
+              </a>
+              <br>
               <hr>
               <div id="addProfileForm" style="display: none;">
                 <!-- Form for adding new profile -->

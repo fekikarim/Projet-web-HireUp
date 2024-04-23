@@ -211,10 +211,7 @@ if (!$profile) {
                                 <div class="card-body">
                                     <h5 class="card-title">Profile Information</h5>
                                     <hr>
-                                    <button type="button" class="card-btn">Name, location, and industry</button>
-                                    <button type="button" class="card-btn">Personal demographic information</button>
-                                    <button type="button" class="card-btn">Verifications</button>
-                                    <button type="button" class="card-btn" onclick="redirectToProfileEdit()">Edit profile details</button>
+                                    <button type="button" class="card-btn" onclick="redirectToProfileEdit()">Edit all profile details</button>
                                 </div>
                             </div>
                         </div>
@@ -262,8 +259,8 @@ if (!$profile) {
                                 <div class="card-body">
                                     <h5 class="card-title">Subscriptions & Payments</h5>
                                     <hr>
-                                    <button type="button" class="card-btn">Upgrade for Free</button>
-                                    <button type="button" class="card-btn">View purchase history</button>
+                                    <button type="button" class="card-btn" onclick="redirectToSubs()">Upgrade for Free</button>
+                                    <button type="button" class="card-btn" onclick="redirectToBilling()">View purchase history</button>
                                 </div>
                             </div>
                         </div>
@@ -316,6 +313,18 @@ if (!$profile) {
         function redirectToAppearence() {
             var profileId = getProfileIdFromUrl();
             var url = "./settings_privacy/appearance_settings.php?profile_id=" + profileId;
+            window.location.href = url;
+        }
+
+        function redirectToSubs(){
+            var profileId = getProfileIdFromUrl();
+            var url = "./subscription/subscriptionCards.php?profile_id=" + profileId;
+            window.location.href = url;
+        }
+
+        function redirectToBilling(){
+            var profileId = getProfileIdFromUrl();
+            var url = "./profile_billing.php?profile_id=" + profileId;
             window.location.href = url;
         }
 

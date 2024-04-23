@@ -228,6 +228,66 @@ class ProfileC
         return $query->rowCount() > 0;
     }
 
+    public function updateProfileDetailsImage($id, $first_name, $family_name, $profile_region, $profile_city, $profile_bio, $profile_current_position, $profile_education, $profile_photo_data, $profile_cover_data)
+    {
+        $tableName = "profile";
+
+        // Prepare and execute the UPDATE query
+        $query = $this->conn->prepare("UPDATE $tableName SET 
+            profile_first_name = :first_name, 
+            profile_family_name = :family_name, 
+            profile_region = :profile_region , 
+            profile_city = :profile_city , 
+            profile_bio = :profile_bio , 
+            profile_current_position = :profile_current_position , 
+            profile_education = :profile_education,
+            profile_photo = :profile_photo, 
+            profile_cover = :profile_cover
+            WHERE profile_id = :id");
+        $query->execute([
+            'id' => $id, 'first_name' => $first_name,
+            'family_name' => $family_name,
+            'profile_region' => $profile_region,
+            'profile_city' => $profile_city,
+            'profile_bio' => $profile_bio,
+            'profile_current_position' => $profile_current_position,
+            'profile_education' => $profile_education,
+            'profile_photo' => $profile_photo_data,
+            'profile_cover' => $profile_cover_data
+        ]);
+
+        // Check if the update was successful
+        return $query->rowCount() > 0;
+    }
+
+    public function updateProfileDetailsWithoutImage($id, $first_name, $family_name, $profile_region, $profile_city, $profile_bio, $profile_current_position, $profile_education)
+    {
+        $tableName = "profile";
+
+        // Prepare and execute the UPDATE query
+        $query = $this->conn->prepare("UPDATE $tableName SET 
+            profile_first_name = :first_name, 
+            profile_family_name = :family_name, 
+            profile_region = :profile_region , 
+            profile_city = :profile_city , 
+            profile_bio = :profile_bio , 
+            profile_current_position = :profile_current_position , 
+            profile_education = :profile_education
+            WHERE profile_id = :id");
+        $query->execute([
+            'id' => $id, 'first_name' => $first_name,
+            'family_name' => $family_name,
+            'profile_region' => $profile_region,
+            'profile_city' => $profile_city,
+            'profile_bio' => $profile_bio,
+            'profile_current_position' => $profile_current_position,
+            'profile_education' => $profile_education
+        ]);
+
+        // Check if the update was successful
+        return $query->rowCount() > 0;
+    }
+
     public function updateProfileNamesBioPictures($id, $first_name, $family_name, $bio, $profile_photo_data, $profile_cover_data)
     {
         $tableName = "profile";
@@ -379,4 +439,8 @@ class ProfileC
 
         return $current_id;
     }
+
+
+    
+    
 }
